@@ -11,10 +11,10 @@ const Navbar = styled(AppBar)({
   color: '#000', 
   boxShadow: 'none',
   padding: '10px 0',
-  position: 'fixed', // Fixed position to keep it at the top
+  position: 'fixed', 
   top: 0,
   width: '100%',
-  zIndex: 1000, // Ensure it stays above other content
+  zIndex: 1000, 
 });
 
 const LogoContainer = styled(Box)({

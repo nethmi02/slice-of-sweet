@@ -1,19 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import './App.css';
-import Home from "./pages/home";
-import About from "./pages/about";
-import Layout from "./layout";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Layout from './Layout';
 
 function App() {
   return (
-      <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
+          {/* Add more routes here */}
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

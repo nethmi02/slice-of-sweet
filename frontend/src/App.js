@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Menu from './pages/Menu';
 import Layout from './Layout';
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          {/* Add more routes here */}
+          <Route path="menu" element={<Menu />} />
+          
         </Route>
       </Routes>
     </Router>

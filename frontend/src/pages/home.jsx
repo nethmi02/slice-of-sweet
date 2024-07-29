@@ -127,7 +127,7 @@ const Home = () => {
               <Typography variant="h4" component="h2" gutterBottom>
                 HAVE A HUGE VARIETY OF FLAVORS
               </Typography>
-              <OrderButton variant="contained" component={Link} to="/menu">
+              <OrderButton variant="contained" component={Link} to="/menu" sx={{ml: 2}}>
                 View Menu
               </OrderButton>
             </Slide>

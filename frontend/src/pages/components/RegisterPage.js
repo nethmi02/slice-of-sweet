@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -18,18 +18,39 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
-const SignUp=() =>{
-  const [email, setemail] = useState("")
-  const [password, setpassword] = useState("")
-  const [confirmPassword,setconfirmpassword]=useState("")
-  const [Fullname,setfullname]=useState("")
-  
+const SignUp = ({ setUserData }) => {
+
+  const [form, setForm] = useState({
+    fullname: '',
+    email: '',
+    phone:'',
+    address:'',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value
+    });
+  };
+
+  const handleRegister = () => {
+    setUserData(form);
+    navigate('/profile');
+  };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(email != "" && password !=""){
-        alert(" Registration Successful")
-    }else{
+    if (form.email != "" && form.password != "") {
+      alert(" Registration Successful")
+    } else {
       alert("please fill out the form first")
     }
   };
@@ -52,18 +73,18 @@ const SignUp=() =>{
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1,width:'400px' }}>
-          <TextField
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '400px' }}>
+            <TextField
               margin="normal"
               required
               fullWidth
               id="fullname"
               label="Full Name"
-              name="name"
+              name="fullname"
               autoComplete="name"
               autoFocus
-              value={Fullname}
-              onChange={(e)=>setfullname(e.target.value)}
+              value={form.fullname}
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -73,9 +94,33 @@ const SignUp=() =>{
               label="Email Address"
               name="email"
               autoComplete="email"
-            
-              value={email}
-              onChange={(e)=>setemail(e.target.value)}
+
+              value={form.email}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="phone"
+              label=" Contact No:"
+              type="text"
+              id="phone"
+
+              value={form.phone}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="address"
+              label="Address "
+              type="text"
+              id="address"
+
+              value={form.address}
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -86,21 +131,22 @@ const SignUp=() =>{
               type="password"
               id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e)=>setpassword(e.target.value)}
+              value={form.password}
+              onChange={handleChange}
             />
-             <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
-              name="confirmpassword"
+              name="confirmPassword"
               label=" Confirm The Password"
               type="password"
               id="password"
-        
-              value={confirmPassword}
-              onChange={(e)=>setconfirmpassword(e.target.value)}
+
+              value={form.confirmPassword}
+              onChange={handleChange}
             />
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -108,15 +154,15 @@ const SignUp=() =>{
             <Button
               type="submit"
               fullWidth
-              variant="contained"
+              variant="contained" onClick={handleRegister}
               sx={{ mt: 3, mb: 2 }}
             >
               Sign up
             </Button>
-          
+
           </Box>
         </Box>
-       
+
       </Container>
     </ThemeProvider>
   );

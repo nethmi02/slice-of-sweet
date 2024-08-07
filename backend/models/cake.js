@@ -23,6 +23,6 @@ const cakeSchema = new mongoose.Schema({
     }
 });
 
-const Cake = mongoose.model('Cake', cakeSchema);
+const Cake = mongoose.model('cake', cakeSchema);
 
 module.exports = Cake;

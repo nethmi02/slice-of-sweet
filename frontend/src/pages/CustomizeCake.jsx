@@ -70,7 +70,7 @@ const CustomizeCake = () => {
   };
 
   const calculatePrice = (size, flavor, toppings, decorations) => {
-    let newPrice = 2000; // Base price
+    let newPrice = 2000; 
     if (size) newPrice += 500;
     if (flavor) newPrice += 500;
     newPrice += toppings.length * 100;

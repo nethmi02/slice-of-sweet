@@ -1,4 +1,6 @@
 class Cart {
+  items = []
+
   constructor() {
     if (!Cart.instance) {
       this.items = [];
@@ -8,7 +10,7 @@ class Cart {
   }
 
   addCake(cake) {
-    const existingCake = this.items.find(item => item.id === cake.id);
+    const existingCake = this.items.find(item => item.name === cake.name);
     if (existingCake) {
       existingCake.quantity += 1;
     } else {
@@ -16,12 +18,12 @@ class Cart {
     }
   }
 
-  removeCake(cakeId) {
-    this.items = this.items.filter(item => item.id !== cakeId);
+  removeCake(cakeName) {
+    this.items = this.items.filter(item => item.name !== cakeName);
   }
 
-  changeCakeQuantity(cakeId, quantity) {
-    const cake = this.items.find(item => item.id === cakeId);
+  changeCakeQuantity(cakeName, quantity) {
+    const cake = this.items.find(item => item.name === cakeName);
     if (cake) {
       cake.quantity = quantity;
     }
@@ -32,11 +34,10 @@ class Cart {
   }
 
   getTotalPrice() {
-    return this.items.reduce((total, item) => total + item.price * item.quantity, 0);
+    return this.items.reduce((total, item) => total + Number(item.price.substring(4)) * item.quantity, 0);
   }
 }
 
-const instance = new Cart();
-Object.freeze(instance);
+const instance = new Cart()
 
 export default instance;

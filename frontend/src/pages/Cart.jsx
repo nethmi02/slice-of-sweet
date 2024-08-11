@@ -39,11 +39,11 @@ const Cart = () => {
                   Quantity: {item.quantity}
                 </Typography>
                 <Typography variant="h6" component="div">
-                  Price: LKR.{item.price}
+                  Price: {item.price}
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="secondary" onClick={() => handleRemove(item.id)}>
+                <Button size="small" color="secondary" onClick={() => handleRemove(item.name)}>
                   Remove
                 </Button>
               </CardActions>

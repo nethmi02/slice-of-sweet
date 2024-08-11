@@ -46,6 +46,7 @@ const Menu = () => {
                 // todo remove this
                 for (let cake of response.data) {
                     Cart.addCake(cake);
+                    break
                 }
             } catch (error) {
                 console.error('Error fetching cakes:', error);

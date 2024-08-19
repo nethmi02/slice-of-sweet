@@ -12,23 +12,33 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Grid, Snackbar } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import pic1 from '../order/assets/signup.svg'
+import { styled } from '@mui/system';
 
-
-
+const OrderButton = styled(Button)({
+  backgroundColor: '#ff69b4',
+  '&:hover': {
+    backgroundColor: '#9b2226',
+  },
+  color: '#fff',
+});
 
 const defaultTheme = createTheme();
 
 const SignUp = ({ setUserData }) => {
-
+  const [open, setopen] = useState(false)
   const [form, setForm] = useState({
     fullname: '',
     email: '',
-    phone:'',
-    address:'',
+    phone: '',
+    address: '',
     password: '',
     confirmPassword: '',
   });
-
+  const [error, seterror] = useState('')
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,19 +51,29 @@ const SignUp = ({ setUserData }) => {
 
   const handleRegister = () => {
     setUserData(form);
-    navigate('/profile');
+   
+    
   };
 
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.email != "" && form.password != "") {
-      alert(" Registration Successful")
+    if (form.fullname == '' && form.email == '' && form.phone == '' && form.address == '' && form.password != form.confirmPassword) {
+      seterror(" Registration  Unsuccessful")
+      setopen(true)
     } else {
-      alert("please fill out the form first")
+      alert(" Successful")
+      navigate('/profile');
     }
   };
+  const handleclose = (e, reason) => {
+    if (reason == 'clickaway') {
+      return
+    } else {
+      setopen(false)
+    }
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -66,10 +86,12 @@ const SignUp = ({ setUserData }) => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+        ><img
+            src={pic1}
+            alt="First"
+            style={{ width: '50%', height: '50%', margin: '0 auto' }}
+          />
+
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -151,15 +173,19 @@ const SignUp = ({ setUserData }) => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained" onClick={handleRegister}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign up
-            </Button>
-
+            <OrderButton type="submit"
+              fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleRegister}>Sign up</OrderButton>
+            <Snackbar
+              message='Please fill out the details first!'
+              autoHideDuration={4000}
+              open={open}
+              onClose={handleclose}
+            />
+            <Grid item>
+              <Link component={RouterLink} to="/login" variant="body2">
+                {"already have an account? Sign in"}
+              </Link>
+            </Grid>
           </Box>
         </Box>
 

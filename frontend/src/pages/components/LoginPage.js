@@ -13,30 +13,49 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom';
+import pic1 from '../order/assets/signin.svg'
+import { styled } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
+import { Snackbar } from '@mui/material';
+const OrderButton = styled(Button)({
+  backgroundColor: '#ff69b4',
+  '&:hover': {
+    backgroundColor: '#9b2226',
+  },
+  color: '#fff',
+});
 
 
 
 
 const defaultTheme = createTheme();
 
-const Login=() =>{
+const Login = () => {
+  const navigate=useNavigate()
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
-  const handleSubmit = (e) => {
+  const [open,setopen]=useState(false)
+  
+  const handleClick = (e) => {
+  
     e.preventDefault();
-    if(email != "" && password !=""){
-
-          if(password.length>= 8){
-            alert("successful")}
-            else{
-              alert("Password must have 8 characters or more")
-            }
-          
-    }else{
-      alert("Please fill Out First")
+    if ( email !="" && password !="") {
+   
+      alert(" Successful")
+      navigate('/home')
+    } else {
+    setopen(true)
     }
   };
+
+ 
+  const handleclose = (e, reason) => {
+    if (reason == 'clickaway') {
+      return
+    } else {
+      setopen(false)
+    }
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -50,13 +69,15 @@ const Login=() =>{
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <img
+            src={pic1}
+            alt="First"
+            style={{ width: '100%', height: '100%', margin: '0 auto' }}
+          />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1,width:'400px' }}>
+          <Box component="form" noValidate sx={{ mt: 1, width: '400px' }}>
             <TextField
               margin="normal"
               required
@@ -67,7 +88,7 @@ const Login=() =>{
               autoComplete="email"
               autoFocus
               value={email}
-              onChange={(e)=>setemail(e.target.value)}
+              onChange={(e) => setemail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -79,38 +100,31 @@ const Login=() =>{
               id="password"
               autoComplete="current-password"
               value={password}
-              onChange={(e)=>setpassword(e.target.value)}
+              onChange={(e) => setpassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+            <OrderButton type="submit"
+              fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleClick} >Sign in</OrderButton>
+               <Snackbar
+              message='Please fill out the details first!'
+              autoHideDuration={4000}
+              open={open}
+              onClose={handleclose}
+            />
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
-                <Link component={RouterLink} to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-                <Link component={RouterLink} to="/profile" variant="body2">
-                  {"Go to my profile"}
-                </Link>
-              </Grid>
+
             </Grid>
           </Box>
         </Box>
-       
+
       </Container>
     </ThemeProvider>
   );

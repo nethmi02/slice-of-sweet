@@ -22,7 +22,7 @@ const Delivery = () => {
     const [city, setcity] = useState("")
     const [zip, setzip] = useState("")
     const [open, setopen] = useState(false)
-    const [open1, setopen1] = useState(false)
+   
 
     const navigate=useNavigate()
 

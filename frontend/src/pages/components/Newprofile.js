@@ -21,7 +21,7 @@ const OrderButton = styled(Button)({
 
 
 const defaultTheme = createTheme();
-const Userprofile = ({ userData, setUserData }) => {
+const Newprofile = ({ profiledata, setprofiledata }) => {
 
     const [fullname, setfullname] = useState("")
 
@@ -53,7 +53,7 @@ const Userprofile = ({ userData, setUserData }) => {
         if (password !== confirmPassword) {
             alert("password do not match")
         } else {
-            userData.password = password; // or however you handle user data update
+            profiledata.password = password; // or however you handle user data update
             setOpen(false);
             setpassword("");
             setconfirmpassword("");
@@ -90,28 +90,28 @@ const Userprofile = ({ userData, setUserData }) => {
                                 </Typography>
                                 <TextField
                                     label="Full Name:"
-                                    value={userData.fullname}
+                                    value={profiledata.fullname}
                                     onChange={(e) => setfullname(e.target.value)}
                                     fullWidth
                                     autoFocus
                                     autoComplete='name' />
                                 <TextField
                                     label="Email:"
-                                    value={userData.email}
+                                    value={profiledata.email}
                                     onChange={(e) => setemail(e.target.value)}
                                     fullWidth
 
                                     autoComplete='name' />
                                 <TextField
                                     label="Contact No:"
-                                    value={userData.phone}
+                                    value={profiledata.phone}
                                     onChange={(e) => setphone(e.target.value)}
                                     fullWidth
 
                                     autoComplete='name' />
                                 <TextField
                                     label="Address:"
-                                    value={userData.address}
+                                    value={profiledata.address}
                                     onChange={(e) => setaddress(e.target.value)}
                                     fullWidth
 
@@ -179,4 +179,4 @@ const Userprofile = ({ userData, setUserData }) => {
     )
 }
 
-export default Userprofile
+export default Newprofile

@@ -15,6 +15,9 @@ mongoose.connect("mongodb+srv://lakshithknishshanke:8MUl3eWMAiiVXh71@cluster0.kv
 })
 
 const Cake = require('./models/cake');
+const Order = require('./models/order');
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send({
@@ -27,6 +30,25 @@ app.get('/cakes', async (req, res) => {
     try {
         const cakes = await Cake.find();
         res.json(cakes);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.post('/order', async (req, res) => {
+    const { items, deliveryAddress, totalPrice, user } = req.body;
+
+    const newOrder = new Order({
+        items,
+        deliveryAddress,
+        totalPrice,
+        orderPlacedTime: new Date(),
+        user
+    });
+
+    try {
+        const savedOrder = await newOrder.save();
+        res.status(201).json(savedOrder);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

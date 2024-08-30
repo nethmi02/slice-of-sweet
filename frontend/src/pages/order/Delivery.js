@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { styled } from '@mui/system';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const OrderButton = styled(Button)({
     backgroundColor: '#ff69b4',
@@ -16,7 +17,7 @@ const OrderButton = styled(Button)({
 });
 
 
-const Delivery = () => {
+const Delivery = ({ onPlaceOrder }) => {
     const [name, setname] = useState("")
     const [address, setaddress] = useState("")
     const [city, setcity] = useState("")
@@ -27,18 +28,31 @@ const Delivery = () => {
     const navigate=useNavigate()
 
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
 
         if (name == '' && address == "" && city == "" && zip == "") {
             setopen(true)
         } else {
-            
-            navigate('./orderconfirm')
+            const deliveryAddress = `${name}, ${address}, ${city}, ${zip}`;
+            const orderData = {
+                items: cart.getItems(),
+                deliveryAddress,
+                totalPrice: cart.getTotalPrice(),
+                orderPlacedTime: new Date(),
+                user: 'currentUser' // Replace with actual user data
+            };
 
+            try {
+                const response = await axios.post('http://localhost:3001/order', orderData);
+                console.log('Order placed successfully:', response.data);
+                navigate('./orderconfirm');
+            } catch (error) {
+                console.error('Error placing order:', error);
+            }
         }
-        // should go to the database
     }
+
     const handleclose = (e, reason) => {
         if (reason == 'clickaway') {
             return

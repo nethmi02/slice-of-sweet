@@ -20,7 +20,7 @@ const order = [
 
 
 const Ordersummary = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const defaultTheme = createTheme();
   return (
@@ -34,19 +34,19 @@ const Ordersummary = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-             
-              
-              
+
+
+
             }}
           >
-       
+
             <Typography component="h1" variant="h5">
               Order Details
             </Typography>
 
             <Typography component="h1" variant="h5">Your Order</Typography>
             {order.map((item) => (
-              <Card key={item.order_id} style={{ marginRight: 20, marginTop:0, textAlign: 'left' }}>
+              <Card key={item.order_id} style={{ marginRight: 20, marginTop: 0, textAlign: 'left' }}>
                 <CardContent>
                   <Typography variant="h6">{item.order_name}</Typography>
                   <Typography color="textSecondary">Order ID: {item.order_id}</Typography>
@@ -59,7 +59,7 @@ const Ordersummary = () => {
                     alt="First"
                     style={{ width: '100%', height: '100%', margin: '0 auto' }}
                   />
-                  <Button onClick={()=>navigate('/home')}> Go Home</Button>
+                  <Button onClick={() => navigate('/')}> Go Home</Button>
                 </CardContent>
               </Card>
             ))}

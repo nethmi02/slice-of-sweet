@@ -4,7 +4,7 @@ import Delivery from './Delivery';
 import { Stack } from '@mui/system';
 import { Button, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-import cart from '../cart';
+import cart from '../../cart';
 import axios from 'axios';
 
 const Checkout = () => {

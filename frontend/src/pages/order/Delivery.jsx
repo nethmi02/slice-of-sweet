@@ -1,12 +1,13 @@
 import { Button, Grid, Paper, Snackbar, TextField, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
 import React from 'react'
-import pic1 from '/home/noufa/Desktop/gitp/slice-of-sweet/frontend/src/pages/order/assets/delivery.svg'
+import pic1 from './assets/delivery.svg'
 import { useState } from 'react';
 import { styled } from '@mui/system';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import cart from '../../cart';
 
 const OrderButton = styled(Button)({
     backgroundColor: '#ff69b4',
@@ -23,9 +24,9 @@ const Delivery = ({ onPlaceOrder }) => {
     const [city, setcity] = useState("")
     const [zip, setzip] = useState("")
     const [open, setopen] = useState(false)
-   
 
-    const navigate=useNavigate()
+
+    const navigate = useNavigate()
 
 
     const handleClick = async (e) => {
@@ -46,7 +47,7 @@ const Delivery = ({ onPlaceOrder }) => {
             try {
                 const response = await axios.post('http://localhost:3001/order', orderData);
                 console.log('Order placed successfully:', response.data);
-                navigate('./orderconfirm');
+                navigate('');
             } catch (error) {
                 console.error('Error placing order:', error);
             }
@@ -60,7 +61,7 @@ const Delivery = ({ onPlaceOrder }) => {
             setopen(false)
         }
     }
-  
+
     return (
         <div>
             <div>
@@ -103,7 +104,7 @@ const Delivery = ({ onPlaceOrder }) => {
 
                             <Grid container >
                                 <Grid item md={6}>    <OrderButton type="submit"
-                                    fullWidth sx={{ mt: 3, mb: 2, marginLeft:20 }} onClick={handleClick}>Place Order</OrderButton>
+                                    fullWidth sx={{ mt: 3, mb: 2, marginLeft: 20 }} onClick={handleClick}>Place Order</OrderButton>
                                     <Snackbar
                                         message='Please fill out the details first!'
                                         autoHideDuration={4000}
@@ -113,7 +114,7 @@ const Delivery = ({ onPlaceOrder }) => {
 
 
                                 </Grid>
-                             
+
                             </Grid>
                         </Stack>
 

@@ -34,7 +34,7 @@ const ContentBox = styled(Box)({
 const CustomizeCake = () => {
   const [size, setSize] = useState('');
   const [flavor, setFlavor] = useState('');
-  const [toppings, setToppings] = useState([]);
+  const [toppings, setToppings] = useState('');
   const [decorations, setDecorations] = useState([]);
   const [price, setPrice] = useState(0);
 
@@ -46,6 +46,7 @@ const CustomizeCake = () => {
       })
       .catch(error => console.error('Error fetching cake details:', error));
   }, []);
+  
 
   const handleSizeChange = (e) => {
     setSize(e.target.value);
@@ -58,15 +59,13 @@ const CustomizeCake = () => {
   };
 
   const handleToppingsChange = (e) => {
-    const selectedOptions = e.target.selectedOptions ? Array.from(e.target.selectedOptions, option => option.value) : [];
-    setToppings(selectedOptions);
-    calculatePrice(size, flavor, selectedOptions, decorations);
+    setToppings(e.target.value);
+    calculatePrice(size, flavor, e.target.value, decorations);
   };
 
   const handleDecorationsChange = (e) => {
-    const selectedOptions = e.target.selectedOptions ? Array.from(e.target.selectedOptions, option => option.value) : [];
-    setDecorations(selectedOptions);
-    calculatePrice(size, flavor, toppings, selectedOptions);
+    setDecorations(e.target.value);
+    calculatePrice(size, flavor, toppings, e.target.value);
   };
 
   const calculatePrice = (size, flavor, toppings, decorations) => {
@@ -89,7 +88,6 @@ const CustomizeCake = () => {
             <FormControl sx={{ mb: 2, minWidth: 200, border: '2px solid', borderColor: '#ff69b4', borderRadius: '8px', p: 2 }}>
               <InputLabel>Size</InputLabel>
               <Select value={size} onChange={handleSizeChange}>
-                <MenuItem value="">Select Size</MenuItem>
                 <MenuItem value="small">Small</MenuItem>
                 <MenuItem value="medium">Medium</MenuItem>
                 <MenuItem value="large">Large</MenuItem>
@@ -98,7 +96,6 @@ const CustomizeCake = () => {
             <FormControl sx={{ mb: 2, minWidth: 200, border: '2px solid', borderColor: '#ff69b4', borderRadius: '8px', p: 2 }}>
               <InputLabel>Flavor</InputLabel>
               <Select value={flavor} onChange={handleFlavorChange}>
-                <MenuItem value="">Select Flavor</MenuItem>
                 <MenuItem value="chocolate">Chocolate</MenuItem>
                 <MenuItem value="vanilla">Vanilla</MenuItem>
                 <MenuItem value="strawberry">Strawberry</MenuItem>
@@ -106,12 +103,7 @@ const CustomizeCake = () => {
             </FormControl>
             <FormControl sx={{ mb: 2, minWidth: 200, border: '2px solid', borderColor: '#ff69b4', borderRadius: '8px', p: 2 }}>
               <InputLabel>Toppings</InputLabel>
-              <Select
-                multiple
-                value={toppings}
-                onChange={handleToppingsChange}
-                renderValue={(selected) => selected.join(', ')}
-              >
+              <Select value={toppings} onChange={handleToppingsChange}>
                 <MenuItem value="nuts">Nuts</MenuItem>
                 <MenuItem value="sprinkles">Sprinkles</MenuItem>
                 <MenuItem value="fruit">Fruit</MenuItem>
@@ -119,12 +111,7 @@ const CustomizeCake = () => {
             </FormControl>
             <FormControl sx={{ mb: 2, minWidth: 200, border: '2px solid', borderColor: '#ff69b4', borderRadius: '8px', p: 2 }}>
               <InputLabel>Decorations</InputLabel>
-              <Select
-                multiple
-                value={decorations}
-                onChange={handleDecorationsChange}
-                renderValue={(selected) => selected.join(', ')}
-              >
+              <Select value = {decorations} onChange={handleDecorationsChange}>
                 <MenuItem value="fondant">Fondant</MenuItem>
                 <MenuItem value="icing">Icing</MenuItem>
                 <MenuItem value="edible-flowers">Edible Flowers</MenuItem>

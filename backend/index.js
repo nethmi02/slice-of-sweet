@@ -54,6 +54,15 @@ app.post('/order', async (req, res) => {
     }
 });
 
+app.get('/admin/orders', async (req, res) => {
+    try {
+        const orders = await Order.find();
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 app.listen(port, () => {
 console.log(`Example app listening on port ${port}`)
 })

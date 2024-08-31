@@ -5,6 +5,7 @@ import Menu from './pages/Menu';
 import Layout from './layout';
 import Cart from './pages/Cart';
 import Checkout from './pages/order/Checkout';
+import AdminDashboard from './pages/AdminDashboard';
 import { createTheme } from '@mui/material/styles';
 import {ThemeProvider} from "@mui/material";
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="menu" element={<Menu />} />
               <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<Checkout />} />
+              <Route path="admin" element={<AdminDashboard />} />
             </Route>
           </Routes>
         </Router>

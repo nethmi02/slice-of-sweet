@@ -1,55 +1,91 @@
-// CustomerReview.jsx
-import React, { useState } from "react";
-import { Box, Typography, Rating, TextField, Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Typography, Rating, Button } from "@mui/material";
+import "./CustomerReview.css"; // Import the CSS file
 
 const AdminReviewPage = () => {
-  const [reviews, setReviews] = useState([
-    {
-      id: 1,
-      tasteRating: 4,
-      lookRating: 5,
-      valueRating: 3,
-      comment: "Great product!",
-      hidden: false,
-      postedTime: new Date("2022-01-01T10:00:00Z"),
-      userName: "John Doe",
-    },
-    {
-      id: 2,
-      tasteRating: 3,
-      lookRating: 2,
-      valueRating: 4,
-      comment: "Could be better.",
-      hidden: false,
-      postedTime: new Date("2022-01-02T14:30:00Z"),
-      userName: "Jane Smith",
-    },
-    {
-      id: 3,
-      tasteRating: 5,
-      lookRating: 5,
-      valueRating: 5,
-      comment: "Amazing!",
-      hidden: false,
-      postedTime: new Date("2022-01-03T09:15:00Z"),
-      userName: "Mike Johnson",
-    },
-  ]);
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
-  const handleHideReview = (id) => {
-    setReviews((prevReviews) =>
-      prevReviews.map((review) =>
-        review.id === id ? { ...review, hidden: true } : review
-      )
-    );
+  // Fetch reviews from the backend
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/reviews"); // Update with correct URL
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched reviews:", data); // Log the fetched data
+          setReviews(data);
+        } else {
+          console.error("Failed to fetch reviews. Status:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
+  // Toggle review visibility
+  const handleToggleVisibility = async (id, currentVisibility) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/reviews/${id}/toggle`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ hidden: !currentVisibility }),
+        }
+      );
+
+      if (response.ok) {
+        setReviews((prevReviews) =>
+          prevReviews.map((review) =>
+            review._id === id
+              ? { ...review, hidden: !currentVisibility }
+              : review
+          )
+        );
+      } else {
+        console.error("Failed to update review visibility.");
+      }
+    } catch (error) {
+      console.error("Error updating review visibility:", error);
+    }
   };
 
-  const handleDeleteReview = (id) => {
-    setReviews((prevReviews) =>
-      prevReviews.filter((review) => review.id !== id)
+  // Confirm and delete review
+  const handleDeleteReview = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this review?"
     );
+    if (confirmDelete) {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/reviews/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (response.ok) {
+          setReviews((prevReviews) =>
+            prevReviews.filter((review) => review._id !== id)
+          );
+        } else {
+          console.error("Failed to delete review.");
+        }
+      } catch (error) {
+        console.error("Error deleting review:", error);
+      }
+    }
   };
 
+  // Sort reviews by rating
   const handleSortByRating = () => {
     setReviews((prevReviews) =>
       [...prevReviews].sort(
@@ -62,33 +98,53 @@ const AdminReviewPage = () => {
     );
   };
 
+  // Sort reviews by posted time
   const sortByPostedTime = () => {
     setReviews((prevReviews) =>
-      [...prevReviews].sort((a, b) => b.postedTime - a.postedTime)
+      [...prevReviews].sort(
+        (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
+      )
     );
   };
 
+  // Sort reviews by user name
   const sortByUserName = () => {
     setReviews((prevReviews) =>
       [...prevReviews].sort((a, b) => a.userName.localeCompare(b.userName))
     );
   };
 
+  if (loading) {
+    return <Typography>Loading...</Typography>;
+  }
+
   return (
-    <Box sx={{ maxWidth: 500, mx: "auto", p: 2, mt: 18 }}>
-      <Typography variant="h3" gutterBottom>
+    <Box className="review-container">
+      <Typography variant="h3" gutterBottom className="header">
         Manage Reviews
       </Typography>
 
       {/* Sort Buttons */}
-      <Box sx={{ mb: 2 }}>
-        <Button variant="contained" onClick={handleSortByRating}>
+      <Box className="sort-buttons">
+        <Button
+          variant="contained"
+          onClick={handleSortByRating}
+          className="sort-btn"
+        >
           Sort by Rating
         </Button>
-        <Button variant="contained" onClick={sortByPostedTime}>
-          Sort by Posted Time
+        <Button
+          variant="contained"
+          onClick={sortByPostedTime}
+          className="sort-btn posted-time"
+        >
+          Sort by Date
         </Button>
-        <Button variant="contained" onClick={sortByUserName}>
+        <Button
+          variant="contained"
+          onClick={sortByUserName}
+          className="sort-btn user-name"
+        >
           Sort by User Name
         </Button>
       </Box>
@@ -96,51 +152,77 @@ const AdminReviewPage = () => {
       {/* Reviews */}
       {reviews.map((review) => (
         <Box
-          key={review.id}
-          sx={{
-            mb: 2,
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            p: 2,
-            backgroundColor: review.hidden ? "#f2f2f2" : "inherit",
-          }}
+          key={review._id}
+          className={`review-card ${review.hidden ? "hidden" : ""}`}
         >
-          <Typography sx={{ fontSize: "small", opacity: 0.6 }}>
-            Posted Time: {review.postedTime.toString()}
-          </Typography>
+          <Box className="review-header">
+            <Typography className="review-user-time">
+              {review.userName}
+            </Typography>
+            <Typography className="review-user-time">
+              {new Date(review.postedTime).toLocaleDateString()}{" "}
+              {/* Short date format */}
+              <br />
+              {new Date(review.postedTime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+              {/* Short time format */}
+            </Typography>
+          </Box>
 
-          <Typography sx={{ fontSize: "small", opacity: 0.6 }}>
-            User Name: {review.userName}
+          <Typography className="review-item-name">
+            Item Name: {review.itemName}
+          </Typography>
+          <Typography className="review-item-code">
+            Item Code: {review.itemCode}
           </Typography>
 
           <Typography component="legend">Taste</Typography>
-          <Rating name="taste-rating" value={review.tasteRating} readOnly />
+          <Rating
+            name="taste-rating"
+            value={review.tasteRating}
+            readOnly
+            sx={{ mb: 1 }}
+          />
 
           <Typography component="legend">Look</Typography>
-          <Rating name="look-rating" value={review.lookRating} readOnly />
+          <Rating
+            name="look-rating"
+            value={review.lookRating}
+            readOnly
+            sx={{ mb: 1 }}
+          />
 
           <Typography component="legend">Value for the Price</Typography>
-          <Rating name="value-rating" value={review.valueRating} readOnly />
+          <Rating
+            name="value-rating"
+            value={review.valueRating}
+            readOnly
+            sx={{ mb: 1 }}
+          />
 
-          <Typography sx={{ fontSize: "small", opacity: 0.6 }}>
-            {review.comment}
-          </Typography>
+          <Typography className="review-comment">{review.comment}</Typography>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleHideReview(review.id)}
-          >
-            Hide
-          </Button>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleToggleVisibility(review._id, review.hidden)}
+              className={`btn ${review.hidden ? "unhide" : "hide"}`}
+            >
+              {review.hidden ? "Unhide" : "Hide"}
+            </Button>
 
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => handleDeleteReview(review.id)}
-          >
-            Delete
-          </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleDeleteReview(review._id)}
+              className="btn delete"
+            >
+              Delete
+            </Button>
+          </Box>
         </Box>
       ))}
     </Box>

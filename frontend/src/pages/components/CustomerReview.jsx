@@ -8,15 +8,39 @@ const CustomerReview = () => {
   const [valueRating, setValueRating] = useState(0);
   const [comment, setComment] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Process the form submission, such as sending data to the server or displaying it
-    console.log({
+
+    const reviewData = {
       tasteRating,
       lookRating,
       valueRating,
       comment,
-    });
+    };
+
+    try {
+      const response = await fetch("http://localhost:3001/api/reviews", {
+        // Ensure this URL is correct
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reviewData),
+      });
+
+      if (response.ok) {
+        console.log("Review submitted successfully!");
+        // Clear form fields
+        setTasteRating(0);
+        setLookRating(0);
+        setValueRating(0);
+        setComment("");
+      } else {
+        console.error("Failed to submit review.");
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
   };
 
   return (

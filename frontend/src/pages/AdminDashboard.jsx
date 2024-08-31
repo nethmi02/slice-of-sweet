@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', pt: 20 }}>
       <Drawer
         variant="permanent"
         sx={{
@@ -35,10 +35,10 @@ const AdminDashboard = () => {
           [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
         }}
       >
+        <Typography variant="h6" noWrap sx={{ p: 2 }}>
+          Admin Dashboard
+        </Typography>
         <List>
-          <ListItem button onClick={() => setSelectedPane('items')}>
-            <ListItemText primary="Items" />
-          </ListItem>
           <ListItem button onClick={() => setSelectedPane('orders')}>
             <ListItemText primary="Orders" />
           </ListItem>
@@ -60,7 +60,9 @@ const AdminDashboard = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Order ID</TableCell>
-                    <TableCell>Items</TableCell>
+                    <TableCell>Item Name</TableCell>
+                    <TableCell>Item Price</TableCell>
+                    <TableCell>Item Quantity</TableCell>
                     <TableCell>Delivery Address</TableCell>
                     <TableCell>Total Price</TableCell>
                     <TableCell>Order Placed Time</TableCell>
@@ -69,14 +71,18 @@ const AdminDashboard = () => {
                 </TableHead>
                 <TableBody>
                   {orders.map((order) => (
-                    <TableRow key={order._id}>
-                      <TableCell>{order._id}</TableCell>
-                      <TableCell>{order.items.join(', ')}</TableCell>
-                      <TableCell>{order.deliveryAddress}</TableCell>
-                      <TableCell>{order.totalPrice}</TableCell>
-                      <TableCell>{new Date(order.orderPlacedTime).toLocaleString()}</TableCell>
-                      <TableCell>{order.user}</TableCell>
-                    </TableRow>
+                    order.items.map((item, index) => (
+                      <TableRow key={`${order._id}-${index}`}>
+                        <TableCell>{order._id}</TableCell>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell>{item.price}</TableCell>
+                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>{order.deliveryAddress}</TableCell>
+                        <TableCell>{order.totalPrice}</TableCell>
+                        <TableCell>{new Date(order.orderPlacedTime).toLocaleString()}</TableCell>
+                        <TableCell>{order.user}</TableCell>
+                      </TableRow>
+                    ))
                   ))}
                 </TableBody>
               </Table>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Typography, Box, Grid, Card, CardMedia, CardContent, CardActions, Button, Select, FormControl, InputLabel, MenuItem } from '@mui/material'; 
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
+import Cart from "../cart";
 
 const OrderButton = styled(Button)({
     backgroundColor: '#ff69b4',
@@ -41,6 +42,12 @@ const Menu = () => {
             try {
                 const response = await axios.get('http://localhost:3001/cakes');
                 setCakes(response.data);
+
+                // todo remove this
+                for (let cake of response.data) {
+                    Cart.addCake(cake);
+                    break
+                }
             } catch (error) {
                 console.error('Error fetching cakes:', error);
             }

@@ -1,13 +1,19 @@
 require('dotenv').config();
 const express = require('express')
+const bodyParser = require('body-parser');
 const cors = require('cors')
+const loginpage=require('./routes/login')
+const registerpage=require('./routes/register')
 const mongoose = require('mongoose');
 const Cake = require('./models/cake');
 
 const app = express()
 app.use(cors());
 
-app.use(express.json());
+//use the bodyparser for body in login.js
+app.use(bodyParser.json()); // <-- This is crucial
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const port = 3001
 
 // todo move this to env variable
@@ -19,12 +25,31 @@ mongoose.connect("mongodb+srv://lakshithknishshanke:8MUl3eWMAiiVXh71@cluster0.kv
 })
 
 
+const Cake = require('./models/cake');
+const Order = require('./models/order');
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send({
         message: "Hello World from Express API backend!"
     })
 })
+// Data
+const items = [
+    { id: 1, name: 'Item 1' },
+    { id: 2, name: 'Item 2' },
+    { id: 3, name: 'Item 3' },
+];
+
+// Route to get items
+app.get('/api/items', (req, res) => {
+    res.json(items);
+});
+//routes 
+//path name with api any name
+app.use('/api/login',loginpage)
+app.use('/api/registerpage',registerpage)
 
 app.get('/cakes', async (req, res) => {
     console.log("/cakes Endpoint")
@@ -77,6 +102,33 @@ app.delete('/cakes/:id', async(req,res) =>{
     }
 });
 
+app.post('/order', async (req, res) => {
+    const { items, deliveryAddress, totalPrice, user } = req.body;
+
+    const newOrder = new Order({
+        items,
+        deliveryAddress,
+        totalPrice,
+        orderPlacedTime: new Date(),
+        user
+    });
+
+    try {
+        const savedOrder = await newOrder.save();
+        res.status(201).json(savedOrder);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/admin/orders', async (req, res) => {
+    try {
+        const orders = await Order.find();
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 app.listen(port, () => {
 console.log(`Example app listening on port ${port}`)

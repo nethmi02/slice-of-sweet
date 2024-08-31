@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import cart from '../cart';
 
 const Navbar = styled(AppBar)({
   backgroundColor: '#fff', 
@@ -46,7 +50,7 @@ const LinkButton = styled(Button)({
   margin: '0 10px',
 });
 
-const IconButton = styled('a')({
+const SocialIconButton = styled('a')({
   margin: '0 10px',
   '& img': {
     height: 24,
@@ -71,11 +75,16 @@ const Header = () => {
           <LinkButton component={Link} to="/menu">Menu</LinkButton>
           <LinkButton component={Link} to="/order"> Customize Cake</LinkButton>
           <LinkButton component={Link} to="/contact">Contact Us</LinkButton>
-          <IconButton href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <SocialIconButton href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
             <img src="/instagram-icon.png" alt="Instagram" />
-          </IconButton>
-          <IconButton href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          </SocialIconButton>
+          <SocialIconButton href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
             <img src="/facebook-icon.png" alt="Facebook" />
+          </SocialIconButton>
+          <IconButton component={Link} to="/cart" color="inherit">
+            <Badge badgeContent={cart.getItems().length} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
           </IconButton>
         </NavLinks>
       </Toolbar>

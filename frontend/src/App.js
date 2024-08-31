@@ -8,6 +8,9 @@ import Checkout from './pages/order/Checkout';
 import AdminDashboard from './pages/AdminDashboard';
 import { createTheme } from '@mui/material/styles';
 import {ThemeProvider} from "@mui/material";
+import Userprofile from './pages/components/Userprofile';
+import RegisterPage from './pages/components/RegisterPage';
+import LoginPage from './pages/components/LoginPage';
 
 const theme = createTheme({
   palette: {
@@ -34,6 +37,9 @@ function App() {
               <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<Checkout />} />
               <Route path="admin" element={<AdminDashboard />} />
+              <Route path="profile" element={<Userprofile />} />
+              <Route path="register" element={<RegisterPage />} />
+              <Route path="login" element={<LoginPage />} />
             </Route>
           </Routes>
         </Router>

@@ -42,7 +42,7 @@ const Login = () => {
     if ( email !="" && password !="") {
    
       alert(" Successful")
-      navigate('/home')
+      navigate('/')
     } else {
     setopen(true)
     }

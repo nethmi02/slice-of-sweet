@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Button, Typography, TextField, Paper } from '@mui/material';
+import { Box, Button, TextField, Paper } from '@mui/material';
 
-const CakeDashboard = () => {
+const Dash = () => {
   const [cakes, setCakes] = useState([]);
   const [formData, setFormData] = useState({ name: '', price: '', description: '', imageUrl: '', category: '' });
 
@@ -22,7 +22,7 @@ const CakeDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/cakes/${id}`);
+      await axios.delete(`http://localhost:3001/cakes/${id}`); 
       fetchCakes(); 
     } catch (error) {
       console.error('Error deleting cake:', error);
@@ -31,27 +31,37 @@ const CakeDashboard = () => {
 
   const handleAddCake = async () => {
     try {
-      await axios.post('/cakes', formData);
+      await axios.post('http://localhost:3001/cakes', formData); 
       setFormData({ name: '', price: '', description: '', imageUrl: '', category: '' });
-      fetchCakes();
+      fetchCakes(); 
     } catch (error) {
       console.error('Error adding cake:', error);
     }
   };
 
   const columns = [
-    { field: '_id', headerName: 'Cake ID', width: 100 },
-    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'name', headerName: 'Name', width: 250 },
     { field: 'price', headerName: 'Price', width: 100 },
-    { field: 'description', headerName: 'Description', width: 300 },
+    { field: 'description', headerName: 'Description', width: 500 },
     {
       field: 'actions',
       headerName: 'Actions',
       width: 200,
       renderCell: (params) => (
         <Box display="flex" gap="10px">
-          <Button variant="contained" color="primary">Update</Button>
-          <Button variant="contained" color="secondary" onClick={() => handleDelete(params.row._id)}>Delete</Button>
+          <Button 
+            variant="contained" 
+            sx={{ backgroundColor: '#ff69b4', '&:hover': { backgroundColor: '#9b2226' } }}
+          >
+            Update
+          </Button>
+          <Button 
+            variant="contained" 
+            sx={{ backgroundColor: '#ff69b4', '&:hover': { backgroundColor: '#9b2226' } }}
+            onClick={() => handleDelete(params.row._id)}
+          >
+            Delete
+          </Button>
         </Box>
       ),
     },
@@ -59,7 +69,6 @@ const CakeDashboard = () => {
 
   return (
     <Box p={3}>
-      <Typography variant="h4" mb={3}>Cake Inventory</Typography>
       <form onSubmit={(e) => { e.preventDefault(); handleAddCake(); }}>
         <TextField
           label="Name"
@@ -85,9 +94,8 @@ const CakeDashboard = () => {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
           fullWidth
-          sx={{ mt: 2 }}
+          sx={{ mt: 2, backgroundColor: '#ff69b4', '&:hover': { backgroundColor: '#9b2226' } }}
         >
           Add Cake
         </Button>
@@ -110,15 +118,11 @@ const CakeDashboard = () => {
             '& .MuiDataGrid-row': {
               backgroundColor: '#fff',
               '&:nth-of-type(odd)': {
-                backgroundColor: ,
+                backgroundColor: '#fafafa',
               },
             },
             '& .MuiButton-root': {
-              backgroundColor:,
-              color: ,
-              '&:hover': {
-                backgroundColor: ,
-              },
+              color: '#fff',
             },
           }}
         />
@@ -127,4 +131,4 @@ const CakeDashboard = () => {
   );
 };
 
-export default CakeDashboard;
+export default Dash;

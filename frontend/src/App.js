@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import Menu from "./pages/Menu";
-import Layout from "./Layout";
+import Layout from "./layout";
 import Cart from "./pages/Cart";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";

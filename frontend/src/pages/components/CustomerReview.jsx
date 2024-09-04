@@ -7,6 +7,9 @@ const CustomerReview = () => {
   const [lookRating, setLookRating] = useState(0);
   const [valueRating, setValueRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [itemCode, setItemCode] = useState(""); // State for item code
+  const [submissionTime] = useState(new Date().toISOString()); // State for submission time
+  const [userName, setUserName] = useState(""); // State for user name
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,11 +19,13 @@ const CustomerReview = () => {
       lookRating,
       valueRating,
       comment,
+      itemCode,
+      submissionTime,
+      userName,
     };
 
     try {
       const response = await fetch("http://localhost:3001/api/reviews", {
-        // Ensure this URL is correct
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,6 +40,8 @@ const CustomerReview = () => {
         setLookRating(0);
         setValueRating(0);
         setComment("");
+        setItemCode(""); // Clear item code
+        setUserName(""); // Clear user name
       } else {
         console.error("Failed to submit review.");
       }
@@ -48,6 +55,28 @@ const CustomerReview = () => {
       <Typography variant="h3" gutterBottom>
         Rate Your Order
       </Typography>
+
+      {/* User Name Input */}
+      <Box sx={{ mb: 2 }}>
+        <TextField
+          fullWidth
+          label="Your Name"
+          variant="outlined"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+      </Box>
+
+      {/* Item Code Input */}
+      <Box sx={{ mb: 2 }}>
+        <TextField
+          fullWidth
+          label="Item Code"
+          variant="outlined"
+          value={itemCode}
+          onChange={(e) => setItemCode(e.target.value)}
+        />
+      </Box>
 
       {/* Taste Rating */}
       <Box sx={{ mb: 2 }}>

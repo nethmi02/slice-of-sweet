@@ -2,12 +2,9 @@
 import { Button, TextField, Box, CssBaseline, FormControl, FormGroup, FormControlLabel, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Snackbar } from '@mui/material'
 import { Container } from '@mui/system'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import React, { useState } from 'react'
 import Typography from '@mui/material/Typography';
-
 import Paper from '@mui/material/Paper';
-
 import pic1 from '../order/assets/profile.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';

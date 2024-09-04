@@ -1,7 +1,7 @@
 import { Button, Grid, Paper, Snackbar, TextField, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
 import React from 'react'
-import pic1 from './assets/delivery.svg'
+import pic1 from '../order/assets/delivery.svg'
 import { useState } from 'react';
 import { styled } from '@mui/system';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
@@ -47,7 +47,7 @@ const Delivery = ({ onPlaceOrder }) => {
             try {
                 const response = await axios.post('http://localhost:3001/order', orderData);
                 console.log('Order placed successfully:', response.data);
-                navigate('');
+                navigate('/orderconfirm')
             } catch (error) {
                 console.error('Error placing order:', error);
             }

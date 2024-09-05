@@ -7,14 +7,6 @@ import CustomizeCake from './pages/CustomizeCake';
 import Layout from './layout';
 import Dash from './pages/owner/dash';
 import Cart from './pages/Cart';
-
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
-import Menu from "./pages/Menu";
-import Layout from "./layout";
-import Cart from "./pages/Cart";
-
 import Checkout from './pages/order/Checkout';
 import AdminDashboard from './pages/AdminDashboard';
 import { createTheme } from "@mui/material/styles";

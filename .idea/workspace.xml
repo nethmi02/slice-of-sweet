@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="68343c38-232f-4b81-a3af-be606b26a150" name="Changes" comment="add option to change quantity" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2i6dVAlbjt0rlRrllheTf60opkG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "lakshith-403/add-cart",
+    "last_opened_file_path": "/Users/lakshithnishshanke/Documents/Education/UCSC/Year 2/Sem 1/2208 RAD/slice-of-sweet",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "ts.external.directory.path": "/Applications/PyCharm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68343c38-232f-4b81-a3af-be606b26a150" name="Changes" comment="" />
+      <created>1718814985087</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718814985087</updated>
+      <workItem from="1718814986511" duration="171000" />
+      <workItem from="1719482623072" duration="1439000" />
+      <workItem from="1721708721962" duration="2725000" />
+      <workItem from="1721778890473" duration="22000" />
+      <workItem from="1722092269294" duration="500000" />
+      <workItem from="1722094817014" duration="81000" />
+      <workItem from="1723019029105" duration="4064000" />
+      <workItem from="1723031508103" duration="80000" />
+      <workItem from="1723392730723" duration="8367000" />
+    </task>
+    <task id="LOCAL-00001" summary="backend init">
+      <option name="closed" value="true" />
+      <created>1718815022967</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718815022967</updated>
+    </task>
+    <task id="LOCAL-00002" summary="frontend init">
+      <option name="closed" value="true" />
+      <created>1718815053855</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718815053855</updated>
+    </task>
+    <task id="LOCAL-00003" summary="react router">
+      <option name="closed" value="true" />
+      <created>1722092684563</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722092684563</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix file naming">
+      <option name="closed" value="true" />
+      <created>1723019444594</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723019444594</updated>
+    </task>
+    <task id="LOCAL-00005" summary="set mongodb url">
+      <option name="closed" value="true" />
+      <created>1723021785897</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723021785897</updated>
+    </task>
+    <task id="LOCAL-00006" summary="remove cake model">
+      <option name="closed" value="true" />
+      <created>1723022421320</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723022421320</updated>
+    </task>
+    <task id="LOCAL-00007" summary="create a color theme for mui">
+      <option name="closed" value="true" />
+      <created>1723394440071</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1723394440071</updated>
+    </task>
+    <task id="LOCAL-00008" summary="cart fixes:&#10;- use name to filter&#10;- fix price showing&#10;- unfreeze the object">
+      <option name="closed" value="true" />
+      <created>1723395750614</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1723395750614</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add option to change quantity">
+      <option name="closed" value="true" />
+      <created>1723396934174</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1723396934174</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add option to change quantity">
+      <option name="closed" value="true" />
+      <created>1723396961478</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1723396961478</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="backend init" />
+    <MESSAGE value="frontend init" />
+    <MESSAGE value="react router" />
+    <MESSAGE value="fix file naming" />
+    <MESSAGE value="set mongodb url" />
+    <MESSAGE value="remove cake model" />
+    <MESSAGE value="create a color theme for mui" />
+    <MESSAGE value="cart fixes:&#10;- use name to filter&#10;- fix price showing&#10;- unfreeze the object" />
+    <MESSAGE value="add option to change quantity" />
+    <option name="LAST_COMMIT_MESSAGE" value="add option to change quantity" />
+  </component>
+</project>

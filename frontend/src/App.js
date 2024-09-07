@@ -1,9 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
-import Menu from "./pages/Menu";
-import Layout from "./layout";
-import Cart from "./pages/Cart";
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import Menu from './pages/Menu';
+import CustomizeCake from './pages/CustomizeCake';
+import Layout from './layout';
+import Dash from './pages/owner/dash';
+import Cart from './pages/Cart';
 import Checkout from './pages/order/Checkout';
 import AdminDashboard from './pages/AdminDashboard';
 import { createTheme } from "@mui/material/styles";
@@ -44,10 +47,14 @@ function App() {
               <Route path="profile" element={<Userprofile />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="login" element={<LoginPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </ThemeProvider>
+
+              <Route path="customizeCake" element={<CustomizeCake />} />
+              <Route path="dash" element={<Dash />} />
+            </Route>
+          </Routes>
+        </Router>
+  </ThemeProvider>
+
   );
 }
 

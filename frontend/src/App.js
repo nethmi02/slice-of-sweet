@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Menu from './pages/Menu';
+import CakeReview from './pages/CakeReview';
 import CustomizeCake from './pages/CustomizeCake';
 import Layout from './layout';
 import Dash from './pages/owner/dash';
@@ -43,11 +44,11 @@ function App() {
             <Route path="customer-review" element={<CustomerReview />} />
             <Route path="review-management" element={<AdminReviewPage />} />
               <Route path="checkout" element={<Checkout />} />
-              <Route path="admin" element={<AdminDashboard />} />
+              <Route path="admin" element={<AdminDashboard />} /> 
               <Route path="profile" element={<Userprofile />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="login" element={<LoginPage />} />
-
+              <Route path="/order/:id" element={<CakeReview />} />
               <Route path="customizeCake" element={<CustomizeCake />} />
               <Route path="dash" element={<Dash />} />
             </Route>

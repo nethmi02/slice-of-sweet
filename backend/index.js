@@ -56,6 +56,18 @@ app.get('/cakes', async (req, res) => {
   }
 });
 
+
+app.get('/cakes/:id', (req, res) => {
+  const cakeId = req.params._id;
+  const cake = cakes.find(cake => cake._id === cakeId);
+  
+  if (cake) {
+    res.status(200).json(cake);
+  } else {
+    res.status(404).json({ message: 'Cake not found' });
+  }
+});
+
 // Add a new cake
 app.post('/cakes', async (req, res) => {
   const { name, price, description, category } = req.body;

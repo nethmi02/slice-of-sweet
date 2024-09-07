@@ -131,7 +131,7 @@ const Menu = () => {
                                                         <Typography variant="h6" component="div">{cake.price}</Typography>
                                                     </CardContent>
                                                     <CardActions>
-                                                        <OrderButton size="small" component={Link} to="/order">
+                                                        <OrderButton size="small" component={Link} to={`/order/${cake._id}`}>
                                                             Order Now
                                                         </OrderButton>
                                                     </CardActions>

@@ -17,6 +17,7 @@ import LoginPage from './pages/LoginPage';
 import CustomerReview from "./pages/CustomerReview";
 import AdminReviewPage from "./pages/ReviewsManagement";
 import About from "./pages/about";
+import Confirmpage from "./pages/Confirmpage";
 
 const theme = createTheme({
   palette: {
@@ -51,6 +52,7 @@ function App() {
             <Route path="customizeCake" element={<CustomizeCake />} />
             <Route path="dash" element={<Dash />} />
             <Route path="about" element={<About />} />
+            <Route path='/orderconfirm' element={<Confirmpage/>}/>
           </Route>
         </Routes>
       </Router>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Ordersummary from '../pages_old/order/Ordersummary';
+import Ordersummary from '../components/Ordersummary';
 import Delivery from '../pages_old/order/Delivery';
 import { Stack } from '@mui/system';
 import { Button, Grid, Typography } from '@mui/material';

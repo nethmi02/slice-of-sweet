@@ -45,6 +45,8 @@ const Cart = () => {
             navigate("/confirm");
         } else {
             console.error("Failed to place order");
+            alert("Failed to place order, You need to login first");
+            navigate("/login");
         }
     };
 

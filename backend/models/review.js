@@ -2,6 +2,18 @@ const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema(
   {
+    userName: {
+      type: String,
+      // required: true,
+    },
+    itemName: {
+      type: String,
+      // required: true,
+    },
+    itemCode: {
+      type: String,
+      // required: true,
+    },
     tasteRating: {
       type: Number,
       required: true,
@@ -18,9 +30,14 @@ const reviewSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    hidden: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { timestamps: true }
+  { timestamps: { createdAt: "submissionTime", updatedAt: "updatedTime" } }
 );
+
 const Review = mongoose.model("Review", reviewSchema);
 
 module.exports = Review;

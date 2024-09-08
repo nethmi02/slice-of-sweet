@@ -1,0 +1,37 @@
+/* App.css */
+
+.review-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px; /* Space between cards */
+  padding: 10px 0;
+  width: 100%;
+  max-width: 100%; /* Ensure it doesn’t exceed viewport width */
+  box-sizing: border-box; /* Include padding and border in element’s total width and height */
+}
+
+.review-carousel::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+.review-card {
+  flex: 0 0 auto; /* Prevent shrinking */
+  width: 300px; /* Adjust width as needed */
+  background: linear-gradient(
+    to bottom right,
+    #ff69b4,
+    #ffffff
+  ); /* Pink to white gradient */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 10px; /* Margin between cards */
+  transition: transform 0.3s ease;
+  box-sizing: border-box; /* Include padding and border in element’s total width and height */
+  color: #050806; /* Text color */
+}
+
+.review-card:hover {
+  transform: scale(1.05); /* Slightly scale up on hover */
+}

@@ -1,22 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/home';
-import Menu from './pages/Menu';
-import CustomizeCake from './pages/CustomizeCake';
-import Layout from './layout';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
-import AdminDashboard from './pages/AdminDashboard';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Menu from "./pages/Menu";
+import CustomizeCake from "./pages/CustomizeCake";
+import Layout from "./layout";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import AdminDashboard from "./pages/AdminDashboard";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
-import Userprofile from './pages/Userprofile';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import CustomerReview from "./pages/CustomerReview";
-import AdminReviewPage from "./pages/ReviewsManagement";
+import Userprofile from "./pages/Userprofile";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import AdminReviewPage from "./pages/Review/ReviewsManagement";
 import About from "./pages/about";
 import Confirmpage from "./pages/Confirmpage";
-import Cake from './pages/Cake';
+import Cake from "./pages/Cake";
 
 const theme = createTheme({
   palette: {
@@ -41,8 +40,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="menu" element={<Menu />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="customer-review" element={<CustomerReview />} />
-            <Route path="review-management" element={<AdminReviewPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="profile" element={<Userprofile />} />
@@ -51,8 +48,10 @@ function App() {
             <Route path="customizeCake" element={<CustomizeCake />} />
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="about" element={<About />} />
-            <Route path='/confirm' element={<Confirmpage/>}/>
+            <Route path="/confirm" element={<Confirmpage />} />
             <Route path="cake/:id" element={<Cake />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
         </Routes>
       </Router>

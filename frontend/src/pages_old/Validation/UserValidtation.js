@@ -8,6 +8,4 @@ export const userSchema= yup.object().shape({
     password:yup.string().min(4).max(9).required(),
     phone:yup.number().max(10).required(),
     address:yup.string().required(),
-    
-
 })

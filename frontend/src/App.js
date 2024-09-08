@@ -5,29 +5,30 @@ import Home from './pages/home';
 import Menu from './pages/Menu';
 import CustomizeCake from './pages/CustomizeCake';
 import Layout from './layout';
-import Dash from './pages/owner/dash';
+import Dash from './pages/dash';
 import Cart from './pages/Cart';
-import Checkout from './pages/order/Checkout';
+import Checkout from './pages/Checkout';
 import AdminDashboard from './pages/AdminDashboard';
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
-import Userprofile from './pages/components/Userprofile';
-import RegisterPage from './pages/components/RegisterPage';
-import LoginPage from './pages/components/LoginPage';
-import CustomerReview from "./pages/components/CustomerReview";
-import AdminReviewPage from "./pages/components/ReviewsManagement";
+import Userprofile from './pages/Userprofile';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import CustomerReview from "./pages/CustomerReview";
+import AdminReviewPage from "./pages/ReviewsManagement";
+import About from "./pages/about";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ff69b4", // Customize your primary color
+      main: "#ff69b4",
     },
     secondary: {
-      main: "#9b2226", // Customize your secondary color
+      main: "#9b2226",
     },
   },
   typography: {
-    fontFamily: "Arial, sans-serif", // Customize your font family
+    fontFamily: "Arial, sans-serif",
   },
 });
 
@@ -42,18 +43,18 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="customer-review" element={<CustomerReview />} />
             <Route path="review-management" element={<AdminReviewPage />} />
-              <Route path="checkout" element={<Checkout />} />
-              <Route path="admin" element={<AdminDashboard />} />
-              <Route path="profile" element={<Userprofile />} />
-              <Route path="register" element={<RegisterPage />} />
-              <Route path="login" element={<LoginPage />} />
-
-              <Route path="customizeCake" element={<CustomizeCake />} />
-              <Route path="dash" element={<Dash />} />
-            </Route>
-          </Routes>
-        </Router>
-  </ThemeProvider>
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="admin" element={<AdminDashboard />} />
+            <Route path="profile" element={<Userprofile />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="customizeCake" element={<CustomizeCake />} />
+            <Route path="dash" element={<Dash />} />
+            <Route path="about" element={<About />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ThemeProvider>
 
   );
 }

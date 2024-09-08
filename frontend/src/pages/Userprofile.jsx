@@ -1,12 +1,10 @@
-import { Button, TextField, Box, CssBaseline, FormControl, FormGroup, FormControlLabel, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
-import { Container } from '@mui/system'
+import { Button, TextField, Box, CssBaseline, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Ordersummary from '../order/Ordersummary';
-import Intialordersummary from './Intialordersummary';
-import pic1 from '../order/assets/profile.svg'
+import Intialordersummary from '../pages_old/components/Intialordersummary';
+import pic1 from '../assets/profile.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 const OrderButton = styled(Button)({
@@ -19,7 +17,7 @@ const OrderButton = styled(Button)({
 
 
 const defaultTheme = createTheme();
-const Newprofile = ({ profiledata, setprofiledata }) => {
+const Userprofile = ({ userData, setUserData }) => {
 
     const [fullname, setfullname] = useState("")
 
@@ -51,7 +49,7 @@ const Newprofile = ({ profiledata, setprofiledata }) => {
         if (password !== confirmPassword) {
             alert("password do not match")
         } else {
-            profiledata.password = password; // or however you handle user data update
+            userData.password = password; // or however you handle user data update
             setOpen(false);
             setpassword("");
             setconfirmpassword("");
@@ -88,28 +86,28 @@ const Newprofile = ({ profiledata, setprofiledata }) => {
                                 </Typography>
                                 <TextField
                                     label="Full Name:"
-                                    value={profiledata.fullname}
+                                    value={userData.fullname}
                                     onChange={(e) => setfullname(e.target.value)}
                                     fullWidth
                                     autoFocus
                                     autoComplete='name' />
                                 <TextField
                                     label="Email:"
-                                    value={profiledata.email}
+                                    value={userData.email}
                                     onChange={(e) => setemail(e.target.value)}
                                     fullWidth
 
                                     autoComplete='name' />
                                 <TextField
                                     label="Contact No:"
-                                    value={profiledata.phone}
+                                    value={userData.phone}
                                     onChange={(e) => setphone(e.target.value)}
                                     fullWidth
 
                                     autoComplete='name' />
                                 <TextField
                                     label="Address:"
-                                    value={profiledata.address}
+                                    value={userData.address}
                                     onChange={(e) => setaddress(e.target.value)}
                                     fullWidth
 
@@ -177,4 +175,4 @@ const Newprofile = ({ profiledata, setprofiledata }) => {
     )
 }
 
-export default Newprofile
+export default Userprofile

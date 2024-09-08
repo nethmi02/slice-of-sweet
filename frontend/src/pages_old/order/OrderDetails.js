@@ -6,15 +6,8 @@ export const OrderDetails = ({ item }) => {
         return <Typography variant="body1">No order details available.</Typography>;
     }
     return (
-
         <div>
-
             <Typography variant="h6">Order Details</Typography>
-
-
-
-
-
             <div>
                 <Typography variant="h6">Items</Typography>
                 {item.items.map((item, index) => (

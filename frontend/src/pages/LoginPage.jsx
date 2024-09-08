@@ -11,11 +11,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import pic1 from '../order/assets/signin.svg'
+import pic1 from '../assets/signin.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { Snackbar } from '@mui/material';
-import { userSchema } from '../Validation/UserValidtation';
+import { userSchema } from '../pages_old/Validation/UserValidtation';
 const OrderButton = styled(Button)({
   backgroundColor: '#ff69b4',
   '&:hover': {

@@ -13,9 +13,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Grid, Snackbar } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
-import pic1 from '../order/assets/signup.svg'
+import pic1 from '../assets/signup.svg'
 import { styled } from '@mui/system';
-import { userSchema } from '../Validation/UserValidtation';
+import { userSchema } from '../pages_old/Validation/UserValidtation';
 
 const OrderButton = styled(Button)({
   backgroundColor: '#ff69b4',

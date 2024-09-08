@@ -102,7 +102,7 @@ const AdminReviewPage = () => {
   const sortByPostedTime = () => {
     setReviews((prevReviews) =>
       [...prevReviews].sort(
-        (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
+        (a, b) => new Date(b.submissionTime) - new Date(a.submissionTime)
       )
     );
   };
@@ -160,10 +160,10 @@ const AdminReviewPage = () => {
               {review.userName}
             </Typography>
             <Typography className="review-user-time">
-              {new Date(review.postedTime).toLocaleDateString()}{" "}
+              {new Date(review.submissionTime).toLocaleDateString()}{" "}
               {/* Short date format */}
               <br />
-              {new Date(review.postedTime).toLocaleTimeString([], {
+              {new Date(review.submissionTime).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}{" "}

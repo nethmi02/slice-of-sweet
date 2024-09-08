@@ -6,8 +6,8 @@ import Layout from "./layout";
 import Cart from "./pages/Cart";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
-import CustomerReview from "./pages/components/CustomerReview";
-import AdminReviewPage from "./pages/components/ReviewsManagement";
+import CustomerReview from "./pages/Reviews/CustomerReview";
+import AdminReviewPage from "./pages/Reviews/ReviewsManagement";
 
 const theme = createTheme({
   palette: {

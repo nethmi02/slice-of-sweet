@@ -40,7 +40,7 @@ const Menu = () => {
     useEffect(() => { // P775e
         const fetchCakes = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/cakes');
+                const response = await axios.get('http://localhost:3001/api/cakes');
                 setCakes(response.data);
 
                 // todo remove this

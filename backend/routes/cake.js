@@ -1,4 +1,6 @@
+const express = require("express");
 const cakeRouter = express.Router();
+const Cake = require("../models/cake");
 
 cakeRouter.get('/', async (req, res) => {
   console.log("/cakes Endpoint");
@@ -47,3 +49,5 @@ cakeRouter.delete('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+module.exports = cakeRouter;

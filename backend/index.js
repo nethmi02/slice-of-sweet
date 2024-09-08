@@ -28,6 +28,7 @@ mongoose.connect(
 const ReviewRoutes = require('./routes/review');
 const AuthRoutes = require('./routes/auth');
 const CakeRoutes = require('./routes/cake');
+const OrderRoutes = require('./routes/orders');
 
 app.get('/', (req, res) => {
   res.send({
@@ -39,7 +40,6 @@ app.use('/api/reviews', ReviewRoutes);
 app.use('/api/cakes', CakeRoutes);
 app.use('/api/orders', OrderRoutes);
 app.use('/api/auth', AuthRoutes);
-app.use('/api/cakes', CakeRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

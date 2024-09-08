@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
@@ -18,6 +17,7 @@ import CustomerReview from "./pages/CustomerReview";
 import AdminReviewPage from "./pages/ReviewsManagement";
 import About from "./pages/about";
 import Confirmpage from "./pages/Confirmpage";
+import Cake from './pages/Cake';
 
 const theme = createTheme({
   palette: {
@@ -53,11 +53,11 @@ function App() {
             <Route path="dash" element={<Dash />} />
             <Route path="about" element={<About />} />
             <Route path='/orderconfirm' element={<Confirmpage/>}/>
+            <Route path="cake/:id" element={<Cake />} />
           </Route>
         </Routes>
       </Router>
     </ThemeProvider>
-
   );
 }
 

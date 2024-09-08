@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const [items, setItems] = useState([]);
+    const [deliveryAddress, setDeliveryAddress] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,12 +17,6 @@ const Cart = () => {
         setItems(cart.getItems());
     };
 
-    const handleCheckout = () => {
-
-
-        navigate('/checkout');
-    };
-
     const handleQuantityChange = (cakeName, value) => {
         let quantity = parseInt(value, 10);
         if (isNaN(quantity) || quantity <= 0) {
@@ -30,6 +25,29 @@ const Cart = () => {
 
         cart.changeCakeQuantity(cakeName, quantity);
         setItems([...cart.getItems()]);
+    };
+
+    const placeOrder = async () => {
+        const response = await fetch("http://localhost:3001/api/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({ items: items, deliveryAddress: deliveryAddress, totalPrice: cart.getTotalPrice() })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Order placed successfully:", data);
+
+            cart.clearCart();
+            navigate("/confirm");
+        } else {
+            console.error("Failed to place order");
+            alert("Failed to place order, You need to login first");
+            navigate("/login");
+        }
     };
 
     return (
@@ -69,12 +87,19 @@ const Cart = () => {
                     </Grid>
                 ))}
             </Grid>
+            <TextField
+                label="Delivery Address"
+                value={deliveryAddress}
+                onChange={(e) => setDeliveryAddress(e.target.value)}
+                fullWidth
+                sx={{ mb: 2 }}
+            />
             <Box sx={{ mt: 4 }}>
                 <Typography variant="h5" component="h2">
                     Total Price: LKR.{cart.getTotalPrice()}
                 </Typography>
-                <Button variant="contained" color="primary" onClick={handleCheckout}>
-                    Checkout
+                <Button variant="contained" color="primary" onClick={placeOrder}>
+                    Place order
                 </Button>
             </Box>
         </Container>

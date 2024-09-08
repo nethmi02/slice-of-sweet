@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import Ordersummary from '../components/Ordersummary';
+import Ordersummary from '../components/orderSummary';
 import Delivery from '../pages_old/order/Delivery';
-import { Stack } from '@mui/system';
-import { Button, Grid, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { Grid, Typography } from '@mui/material';
 import cart from '../cart';
 import axios from 'axios';
 
@@ -18,7 +16,7 @@ const Checkout = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/order', orderData);
+      const response = await axios.post('http://localhost:3001/api/order', orderData);
       console.log('Order placed successfully:', response.data);
     } catch (error) {
       console.error('Error placing order:', error);
@@ -30,7 +28,7 @@ const Checkout = () => {
       <Typography component='h1' variant='h5' sx={{ marginLeft: 50, fontSize: 100 }}>Checkout</Typography>
       <Grid container columnSpacing={2}>
         <Grid item md={8}>
-          <Delivery onPlaceOrder={handlePlaceOrder} />
+          {/* <Delivery onPlaceOrder={handlePlaceOrder} /> */}
         </Grid>
         <Grid item md={4}>
           <Ordersummary items={items} />

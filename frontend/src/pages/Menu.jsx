@@ -40,14 +40,8 @@ const Menu = () => {
     useEffect(() => { // P775e
         const fetchCakes = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/cakes');
+                const response = await axios.get('http://localhost:3001/api/cakes');
                 setCakes(response.data);
-
-                // todo remove this
-                for (let cake of response.data) {
-                    Cart.addCake(cake);
-                    break
-                }
             } catch (error) {
                 console.error('Error fetching cakes:', error);
             }
@@ -124,15 +118,25 @@ const Menu = () => {
                                         .map((cake, index) => (
                                             <Grid item xs={12} sm={6} md={4} key={index}>
                                                 <Card sx={{ height: '100%' }}>
-                                                    <CardMedia component="img" height="350" image={cake.image} alt={cake.name} sx={{ objectFit: 'cover' }} />
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="350"
+                                                        image={cake.image}
+                                                        alt={cake.name}
+                                                        sx={{ objectFit: 'cover' }}
+                                                    />
                                                     <CardContent>
                                                         <Typography variant="h5" component="h2">{cake.name}</Typography>
                                                         <Typography variant="body2" color="textSecondary">{cake.description}</Typography>
                                                         <Typography variant="h6" component="div">{cake.price}</Typography>
                                                     </CardContent>
                                                     <CardActions>
-                                                        <OrderButton size="small" component={Link} to="/order">
-                                                            Order Now
+                                                        <OrderButton
+                                                            size="small"
+                                                            component={Link}
+                                                            to={`/cake/${cake._id}`}
+                                                        >
+                                                            View Details
                                                         </OrderButton>
                                                     </CardActions>
                                                 </Card>

@@ -9,12 +9,12 @@ class Cart {
     return Cart.instance;
   }
 
-  addCake(cake) {
+  addCake(cake, quantity=1) {
     const existingCake = this.items.find(item => item.name === cake.name);
     if (existingCake) {
-      existingCake.quantity += 1;
+      existingCake.quantity += quantity;
     } else {
-      this.items.push({ ...cake, quantity: 1 });
+      this.items.push({ ...cake, quantity: quantity });
     }
   }
 
@@ -35,6 +35,10 @@ class Cart {
 
   getTotalPrice() {
     return this.items.reduce((total, item) => total + Number(item.price.substring(4)) * item.quantity, 0);
+  }
+
+  clearCart() {
+    this.items = [];
   }
 }
 

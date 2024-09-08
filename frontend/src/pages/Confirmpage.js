@@ -19,7 +19,7 @@ const defaultTheme = createTheme();
 const Confirmpage = () => {
   const navigate = useNavigate();
   const handleclick = () => {
-    navigate('/ordersummary')
+    navigate('/profile')
   }
   return (
     <>

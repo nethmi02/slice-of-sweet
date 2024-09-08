@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
@@ -8,6 +9,18 @@ import Dash from "./pages/dash";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import AdminDashboard from "./pages/AdminDashboard";
+=======
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import Menu from './pages/Menu';
+import CustomizeCake from './pages/CustomizeCake';
+import Layout from './layout';
+import Dash from './pages/dash';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import AdminDashboard from './pages/AdminDashboard';
+>>>>>>> daa96bcc42879b4d7d57ab15705bc95787348356
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 import Userprofile from "./pages/Userprofile";
@@ -17,6 +30,7 @@ import CustomerReview from "./pages/Review/CustomerReview";
 import AdminReviewPage from "./pages/Review/ReviewsManagement";
 import About from "./pages/about";
 import Confirmpage from "./pages/Confirmpage";
+import Cake from './pages/Cake';
 
 const theme = createTheme({
   palette: {
@@ -51,7 +65,12 @@ function App() {
             <Route path="customizeCake" element={<CustomizeCake />} />
             <Route path="dash" element={<Dash />} />
             <Route path="about" element={<About />} />
+<<<<<<< HEAD
             <Route path="/orderconfirm" element={<Confirmpage />} />
+=======
+            <Route path='/confirm' element={<Confirmpage/>}/>
+            <Route path="cake/:id" element={<Cake />} />
+>>>>>>> daa96bcc42879b4d7d57ab15705bc95787348356
           </Route>
         </Routes>
       </Router>

@@ -4,7 +4,6 @@ import Home from "./pages/home";
 import Menu from "./pages/Menu";
 import CustomizeCake from "./pages/CustomizeCake";
 import Layout from "./layout";
-import Dash from "./pages/dash";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -50,7 +49,7 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="customizeCake" element={<CustomizeCake />} />
-            <Route path="dash" element={<Dash />} />
+            <Route path="admin" element={<AdminDashboard />} />
             <Route path="about" element={<About />} />
             <Route path="/confirm" element={<Confirmpage />} />
             <Route path="cake/:id" element={<Cake />} />

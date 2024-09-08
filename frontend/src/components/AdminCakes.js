@@ -13,38 +13,60 @@ const CakeButton = styled(Button)({
     color: '#fff',
 });
 
-const Dash = () => {
+const AdminCakes = () => {
     const [cakes, setCakes] = useState([]);
+    const [cake_id, setCakeId] = useState(""); // New state for cake_id
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [open, setOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const navigate = useNavigate();
     
     const handleClick = async (e) => {
         e.preventDefault();
 
+        // Check if any field except cake_id is empty
         if (name === '' || price === '' || description === '' || category === '') {
+            setAlertMessage('Please fill out all fields except Cake ID!');
             setOpen(true);
-        } else {
-            const cakeData = {
-                name,
-                price,
-                description,
-                category
-            };
-
-            try {
-                const response = await axios.post('http://localhost:3001/cakes', cakeData);
-                console.log('cake placed successfully:', response.data);
-                navigate('/cakeadded');
-                fetchCakes(); // Update the list after adding a cake
-            } catch (error) {
-                console.error('Error adding cake:', error);
-            }
+            return; // Exit the function if validation fails
         }
+
+        const cakeData = {
+            id: cake_id,
+            name,
+            price,
+            description,
+            category
+        };
+
+        try {
+          const response = await axios.post('http://localhost:3001/api/cakes', cakeData, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } });
+          console.log('cake placed successfully:', response.data);
+          fetchCakes(); // Update the list after adding/updating a cake
+          alert('Cake added successfully!');
+        } catch (error) {
+            console.error('Error adding/updating cake:', error);
+        }
+    };
+
+    const handleEdit = (cake) => {
+        setCakeId(cake._id); // Load cake ID
+        setName(cake.name);
+        setPrice(cake.price);
+        setDescription(cake.description);
+        setCategory(cake.category);
+    };
+
+    const handleClear = () => {
+        setCakeId("");
+        setName("");
+        setPrice("");
+        setDescription("");
+        setCategory("");
     };
 
     const handleClose = (e, reason) => {
@@ -61,7 +83,7 @@ const Dash = () => {
 
     const fetchCakes = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/cakes');
+            const response = await axios.get('http://localhost:3001/api/cakes');
             setCakes(response.data);
         } catch (error) {
             console.error('Error fetching cakes:', error);
@@ -70,7 +92,8 @@ const Dash = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3001/cakes/${id}`); 
+            await axios.delete(`http://localhost:3001/api/cakes/${id}`, 
+              { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } }); 
             fetchCakes(); // Update the list after deleting a cake
         } catch (error) {
             console.error('Error deleting cake:', error);
@@ -81,6 +104,7 @@ const Dash = () => {
         { field: 'name', headerName: 'Name', width: 150 },
         { field: 'price', headerName: 'Price', width: 100 },
         { field: 'description', headerName: 'Description', width: 300 },
+        { field: 'category', headerName: 'Category', width: 150 },
         {
             field: 'actions',
             headerName: 'Actions',
@@ -90,6 +114,7 @@ const Dash = () => {
                     <Button 
                         variant="contained" 
                         sx={{ backgroundColor: '#ff69b4', '&:hover': { backgroundColor: '#9b2226' } }}
+                        onClick={() => handleEdit(params.row)} // Load cake data into fields
                     >
                         Update
                     </Button>
@@ -108,12 +133,18 @@ const Dash = () => {
     return (
         <div>
             <Container>
-                <Box component='form' sx={{ mt: 2, height: 500 }}>
-                    <Paper elevation={3} sx={{ p: 4, borderRadius: 2, height: 800, paddingBottom: 10 }}>
+                <Box component='form' sx={{ mt: 2 }}>
+                    <Paper elevation={3} sx={{ p: 4, borderRadius: 2, paddingBottom: 10 }}>
                         <Stack direction="column" spacing={2}>
                             <Typography component="h1" variant='h5' align='center' gutterBottom>ADD CAKE</Typography>
                             <TextField
                                 autoFocus
+                                name='cake_id'
+                                label="Cake ID:"
+                                value={cake_id}
+                                onChange={(e) => setCakeId(e.target.value)} // Handle cake_id change
+                            />
+                            <TextField
                                 name='name'
                                 label="Name:"
                                 value={name}
@@ -136,11 +167,18 @@ const Dash = () => {
                             <Grid container >
                                 <Grid item md={6}>    
                                     <CakeButton type="submit"
-                                        fullWidth sx={{ mt: 3, mb: 2, marginLeft: 20 }} onClick={handleClick}>
-                                        Add
+                                         sx={{ mt: 3, mb: 2}} onClick={handleClick}>
+                                        {cake_id ? 'Update' : 'Add'} {/* Change button text based on cake_id */}
                                     </CakeButton>
+                                    <Button 
+                                        variant="outlined" 
+                                        sx={{ mt: 3, mb: 2, marginLeft: 2 }} 
+                                        onClick={handleClear} // Clear fields
+                                    >
+                                        Clear
+                                    </Button>
                                     <Snackbar
-                                        message='Please fill out the details first!'
+                                        message={alertMessage}
                                         autoHideDuration={4000}
                                         open={open}
                                         onClose={handleClose}
@@ -182,4 +220,4 @@ const Dash = () => {
     );
 };
 
-export default Dash;
+export default AdminCakes;

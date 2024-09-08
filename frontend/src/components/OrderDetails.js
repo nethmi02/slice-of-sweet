@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 
 export const OrderDetails = ({ item }) => {
+    console.log(item)
     if (!item) {
         return <Typography variant="body1">No order details available.</Typography>;
     }

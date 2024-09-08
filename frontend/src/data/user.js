@@ -5,6 +5,7 @@ class User {
   name;
   phone;
   address;
+  role;
 
   constructor(token) {
     this.token = token;
@@ -15,6 +16,7 @@ class User {
     if (data.email) this.email = data.email;
     if (data.phone) this.phone = data.phone;
     if (data.address) this.address = data.address;
+    if (data.role) this.role = data.role;
   }
 
   setToken(token) {
@@ -77,6 +79,7 @@ class User {
     this.name = ""
     this.phone = ""
     this.address = ""
+    this.role = ""
   }
 }
 

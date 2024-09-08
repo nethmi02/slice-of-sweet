@@ -1,6 +1,7 @@
 const express = require('express');
 const Order = require('../models/order');
 const authenticate = require('../auth');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -34,7 +35,12 @@ router.post('/', authenticate, async (req, res) => {
   }
 });
 
-router.get('/admin', async (req, res) => {
+router.get('/admin', authenticate, async (req, res) => {
+  const user_id = req.user.userId;
+  const user = await User.findById(user_id);
+  if (user.role !== 'admin') {
+    return res.status(403).json({ message: 'Unauthorized access' });
+  }
   try {
     const orders = await Order.find();
     res.json(orders);
@@ -42,5 +48,43 @@ router.get('/admin', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+router.post('/admin', authenticate, async (req, res) => {
+  const user_id = req.user.userId;
+  const user = await User.findById(user_id);
+  if (user.role !== 'admin') {
+    return res.status(403).json({ message: 'Unauthorized access' });
+  }
+
+  const { order_id, status } = req.body;
+
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(order_id, { status });
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.delete('/admin/:id', authenticate, async (req, res) => {
+  const user_id = req.user.userId;
+  const user = await User.findById(user_id);
+  if (user.role !== 'admin') {
+    return res.status(403).json({ message: 'Unauthorized access' });
+  }
+
+  const order_id = req.params.id;
+
+  try {
+    const deletedOrder = await Order.findByIdAndDelete(order_id);
+    if (!deletedOrder) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.json(deletedOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;

@@ -156,7 +156,6 @@ const AdminReviewPage = () => {
           <TableHead>
             <TableRow>
               <TableCell>User Name</TableCell>
-              <TableCell>Item Name</TableCell>
               <TableCell>Item Code</TableCell>
               <TableCell>Taste</TableCell>
               <TableCell>Look</TableCell>
@@ -174,7 +173,6 @@ const AdminReviewPage = () => {
                 className={review.hidden ? "hidden-row" : ""}
               >
                 <TableCell>{review.userName}</TableCell>
-                <TableCell>{review.itemName}</TableCell>
                 <TableCell>{review.itemCode}</TableCell>
                 <TableCell>
                   <Rating

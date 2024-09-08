@@ -40,7 +40,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="menu" element={<Menu />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="review-management" element={<AdminReviewPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="profile" element={<Userprofile />} />

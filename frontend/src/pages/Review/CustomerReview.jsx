@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Rating, TextField, Button } from "@mui/material";
-import { fetchReview, isEditable, submitReview } from "./EditReview"; // Import service functions
-import { getUserInfo, getItemInfo } from "./apiService.js"; // Assumed functions to fetch user and item data
+import { fetchReview, isEditable, submitReview } from "./EditReview";
 
-const CustomerReview = () => {
+const CustomerReview = ({ userName, itemId }) => {
   const [tasteRating, setTasteRating] = useState(0);
   const [lookRating, setLookRating] = useState(0);
   const [valueRating, setValueRating] = useState(0);
@@ -11,21 +10,12 @@ const CustomerReview = () => {
   const [submissionTime, setSubmissionTime] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [reviewId, setReviewId] = useState(null);
-  const [userName, setUserName] = useState("");
-  const [itemId, setItemId] = useState("");
 
   // Fetch user and item info when the component loads
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = await getUserInfo(); // Fetch user info from the API
-        const item = await getItemInfo(); // Fetch item info from the API
-
-        setUserName(user.name); // Set the logged-in user's name
-        setItemId(item._id); // Set the current item's _id
-
-        // Fetch existing review if it exists
-        const review = await fetchReview(item._id, user.name);
+        const review = await fetchReview(itemId, userName);
         if (review && isEditable(review.submissionTime)) {
           setTasteRating(review.tasteRating);
           setLookRating(review.lookRating);
@@ -45,17 +35,16 @@ const CustomerReview = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const reviewData = {
-      id: reviewId, // Use this if it's an update
       tasteRating,
       lookRating,
       valueRating,
       comment,
-      _id: itemId, // Use _id (itemId) for identification
       submissionTime: new Date().toISOString(),
-      // userName,
+      userName,
+      itemCode: itemId,
     };
 
-    const success = await submitReview(reviewData, isEditMode);
+    const success = await submitReview(reviewData);
     if (success) {
       // Reset form after submission
       setTasteRating(0);

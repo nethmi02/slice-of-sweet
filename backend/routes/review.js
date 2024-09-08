@@ -1,12 +1,32 @@
 const express = require("express");
 const router = express.Router();
 const Review = require("../models/review"); // Adjust path as needed
+const authenticate = require("../auth");
 
 // POST endpoint to create a new review
-router.post("/", async (req, res) => {
-  console.log("Creating a new review");
+router.post("/", authenticate, async (req, res) => {
+  const user_id = req.user.userId;
+  if (!user_id) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  console.log("Creating/ updating a new review");
+  console.log("Request body:", req.body);
   try {
-    const review = new Review(req.body);
+    const { itemCode, userName } = req.body;
+    let review = await Review.findOne({ itemCode, userName });
+
+    if (!review) {
+      console.log("Creating a new review");
+      review = new Review(req.body);
+    } else {
+      console.log("Updating an existing review");
+      review.tasteRating = req.body.tasteRating;
+      review.lookRating = req.body.lookRating;
+      review.valueRating = req.body.valueRating;
+      review.comment = req.body.comment;
+    }
+
     await review.save();
     res.status(201).json(review);
   } catch (error) {
@@ -17,13 +37,30 @@ router.post("/", async (req, res) => {
 
 // GET endpoint to fetch all reviews
 router.get("/", async (req, res) => {
-  console.log("Fetching all reviews");
-  try {
-    const reviews = await Review.find();
-    res.json(reviews);
-  } catch (error) {
-    console.error("Error fetching reviews:", error);
+  const { itemCode, userName } = req.query;
+  console.log("Fetching review for itemCode:", itemCode, "and userName:", userName);
+  if (itemCode && userName) {
+    console.log("Fetching review for itemCode:", itemCode, "and userName:", userName);
+    try {
+      const review = await Review.findOne({ itemCode, userName });
+      if (review) {
+        res.json(review);
+      } else {
+        res.status(404).json({ message: "Review not found" });
+      }
+    } catch (error) {
+      console.error("Error fetching review:", error);
+      res.status(500).json({ message: error.message });
+    }
+  } else {
+    console.log("Fetching all reviews");
+    try {
+      const reviews = await Review.find();
+      res.json(reviews);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
     res.status(500).json({ message: error.message });
+    }
   }
 });
 

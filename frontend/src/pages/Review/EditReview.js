@@ -1,7 +1,9 @@
+import User from "../../data/user";
+
 export const fetchReview = async (itemCode, userName) => {
   try {
     const response = await fetch(
-      `http://localhost:3001/api/reviews?itemCode=${itemCode}&userName=${userName}`
+      `http://localhost:3001/api/reviews?itemCode=${encodeURIComponent(itemCode)}&userName=${encodeURIComponent(userName)}`
     );
     if (response.ok) {
       const review = await response.json();
@@ -23,28 +25,23 @@ export const isEditable = (submissionTime) => {
   return differenceInDays <= 7;
 };
 
-export const submitReview = async (reviewData, isEditMode) => {
-  const url = isEditMode
-    ? `http://localhost:3001/api/reviews/${reviewData.id}` // Assuming review ID is passed for updates
-    : "http://localhost:3001/api/reviews";
+export const submitReview = async (reviewData) => {
+  const url = `http://localhost:3001/api/reviews`;
 
-  const method = isEditMode ? "PUT" : "POST";
+  const method = "POST";
 
   try {
     const response = await fetch(url, {
       method: method,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${User.instance.token}`,
       },
       body: JSON.stringify(reviewData),
     });
 
     if (response.ok) {
-      console.log(
-        isEditMode
-          ? "Review updated successfully!"
-          : "Review submitted successfully!"
-      );
+      console.log("Review submitted successfully!");
       return true;
     } else {
       console.error("Failed to submit review.");

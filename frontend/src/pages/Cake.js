@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Container, Typography, Box, Grid, Card, CardMedia, CardContent, TextField, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import Cart from "../cart";
+import CustomerReview from "../pages/Review/CustomerReview"; // Assuming this is the correct import path
+import User from "../data/user";
 
 const AddToCartButton = styled(Button)({
   backgroundColor: '#ff69b4',
@@ -96,6 +98,9 @@ const Cake = () => {
           </Card>
         </Grid>
       </Grid>
+      {User.instance.token && User.instance.email && (
+        <CustomerReview userName={User.instance.email} itemId={id} />
+      )}
     </Container>
   );
 };

@@ -12,7 +12,6 @@ import { ThemeProvider } from "@mui/material";
 import Userprofile from "./pages/Userprofile";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import CustomerReview from "./pages/Review/CustomerReview";
 import AdminReviewPage from "./pages/Review/ReviewsManagement";
 import About from "./pages/about";
 import Confirmpage from "./pages/Confirmpage";
@@ -41,7 +40,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="menu" element={<Menu />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="customer-review" element={<CustomerReview />} />
             <Route path="review-management" element={<AdminReviewPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="admin" element={<AdminDashboard />} />

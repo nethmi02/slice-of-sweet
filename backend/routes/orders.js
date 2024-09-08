@@ -5,7 +5,7 @@ const authenticate = require('../auth');
 const router = express.Router();
 
 router.get('/', authenticate, async (req, res) => {
-  const user_id = req.user._id;
+  const user_id = req.user.userId;
   try {
     const orders = await Order.find({ user: user_id });
     res.json(orders);
@@ -15,7 +15,7 @@ router.get('/', authenticate, async (req, res) => {
 });
 
 router.post('/', authenticate, async (req, res) => {
-  const user_id = req.user._id;
+  const user_id = req.user.userId;
   const { items, deliveryAddress, totalPrice } = req.body;
 
   const newOrder = new Order({

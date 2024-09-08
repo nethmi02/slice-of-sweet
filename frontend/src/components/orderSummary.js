@@ -42,24 +42,19 @@ const Ordersummary = () => {
               Order Details
             </Typography>
 
-            <Typography component="h1" variant="h5">No orders</Typography>
             {order.map((item) => (
               <Card key={item.order_id} style={{  marginTop: 20, textAlign: 'center' }}>
                 <CardContent>
-                  <Typography variant="h6">{item.order_name}</Typography>
-                  <Typography color="textSecondary">Order ID: {item.order_id}</Typography>
-                  <Typography color="textSecondary">Price: ${item.price}</Typography>
-                  <Typography color="textSecondary">Order Date: {item.order_date}</Typography>
-                  <Typography color="textSecondary">Estimated Delivery: {item.estimated_delivery || "Not available"}</Typography>
-                  <Typography color="textSecondary">Delivery Address:{item.delivery_address} </Typography>
+                  <Typography color="textSecondary">Order ID: {item._id}</Typography>
+                  <Typography color="textSecondary">Delivery Address:{item.deliveryAddress} </Typography>
 
                  {item.items.map((product,index)=>(
                   <div key={index} >
                     
                     <Typography variant="h6" color="textSecondary">item:{product.name}</Typography>
                     <Typography color="textSecondary">price:{product.price}</Typography>
-                    <Typography color="textSecondary">quantity:{product.category}</Typography>
-                    <Typography color="textSecondary">category:{product.quantity}</Typography>
+                    <Typography color="textSecondary">quantity:{product.quantity}</Typography>
+                    <Typography color="textSecondary">category:{product.category}</Typography>
 
 
                   </div>

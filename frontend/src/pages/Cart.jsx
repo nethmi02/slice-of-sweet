@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const [items, setItems] = useState([]);
+    const [deliveryAddress, setDeliveryAddress] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,12 +15,6 @@ const Cart = () => {
     const handleRemove = (cakeId) => {
         cart.removeCake(cakeId);
         setItems(cart.getItems());
-    };
-
-    const handleCheckout = () => {
-
-
-        navigate('/checkout');
     };
 
     const handleQuantityChange = (cakeName, value) => {
@@ -39,14 +34,19 @@ const Cart = () => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-            body: JSON.stringify({ items: items, deliveryAddress: "123 Main St", totalPrice: cart.getTotalPrice() })
+            body: JSON.stringify({ items: items, deliveryAddress: deliveryAddress, totalPrice: cart.getTotalPrice() })
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log("Order placed successfully:", data);
+
+            cart.clearCart();
+            navigate("/confirm");
         } else {
             console.error("Failed to place order");
+            alert("Failed to place order, You need to login first");
+            navigate("/login");
         }
     };
 
@@ -87,6 +87,13 @@ const Cart = () => {
                     </Grid>
                 ))}
             </Grid>
+            <TextField
+                label="Delivery Address"
+                value={deliveryAddress}
+                onChange={(e) => setDeliveryAddress(e.target.value)}
+                fullWidth
+                sx={{ mb: 2 }}
+            />
             <Box sx={{ mt: 4 }}>
                 <Typography variant="h5" component="h2">
                     Total Price: LKR.{cart.getTotalPrice()}

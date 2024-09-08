@@ -12,6 +12,18 @@ cakeRouter.get('/', async (req, res) => {
   }
 });
 
+cakeRouter.get('/:id', async (req, res) => {
+  try {
+    const cake = await Cake.findById(req.params.id);
+    if (!cake) {
+      return res.status(404).json({ message: 'Cake not found' });
+    }
+    res.json(cake);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Add a new cake
 cakeRouter.post('/', async (req, res) => {
   const { name, price, description, category } = req.body;

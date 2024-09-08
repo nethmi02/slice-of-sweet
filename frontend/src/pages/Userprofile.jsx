@@ -93,12 +93,9 @@ const Userprofile = () => {
                         </Grid>
 
                         <Grid item md={8}>
-                            <Box sx={{ marginLeft: '50%' }}>
+                            <Box sx={{ marginLeft: '50%', gap: '10px'}}>
                                 <Typography component="h1" variant="h4">
-                                    Set User Profile
-                                </Typography>
-                                <Typography component="h1" variant="h6">
-                                    Basic Info
+                                    User Profile
                                 </Typography>
                                 <TextField
                                     label="Full Name:"

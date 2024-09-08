@@ -30,12 +30,6 @@ const AuthRoutes = require('./routes/auth');
 const CakeRoutes = require('./routes/cake');
 const OrderRoutes = require('./routes/orders');
 
-app.get('/', (req, res) => {
-  res.send({
-    message: "Hello World from Express API backend!"
-  });
-});
-
 app.use('/api/reviews', ReviewRoutes);
 app.use('/api/cakes', CakeRoutes);
 app.use('/api/orders', OrderRoutes);

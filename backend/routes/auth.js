@@ -6,12 +6,12 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, phone, address, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, email, password: hashedPassword });
+    const user = new User({ name, email, phone, address, password: hashedPassword, role: "client" });
     await user.save();
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, "hehe", {
       expiresIn: "1h",
     });
     res.status(201).json({ message: "User registered successfully", token });
@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
     });
     res.status(200).json({ token });
   } catch (error) {
-    res.status(500).send("Error logging in");
+    res.status(500).send(`Error logging in: ${error}`);
   }
 });
 

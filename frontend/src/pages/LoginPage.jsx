@@ -15,7 +15,7 @@ import pic1 from '../assets/signin.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { Snackbar } from '@mui/material';
-import { userSchema } from '../pages_old/Validation/UserValidtation';
+import { userSchema } from '../data/UserValidtation';
 const OrderButton = styled(Button)({
   backgroundColor: '#ff69b4',
   '&:hover': {
@@ -121,8 +121,8 @@ const Login = () => {
             />
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link href="/register" variant="body2">
+                  Register Instead
                 </Link>
               </Grid>
 

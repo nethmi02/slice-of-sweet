@@ -32,6 +32,24 @@ const Cart = () => {
         setItems([...cart.getItems()]);
     };
 
+    const placeOrder = async () => {
+        const response = await fetch("http://localhost:3001/api/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({ items: items, deliveryAddress: "123 Main St", totalPrice: cart.getTotalPrice() })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Order placed successfully:", data);
+        } else {
+            console.error("Failed to place order");
+        }
+    };
+
     return (
         <Container sx={{ mt: '120px' }}>
             <Typography variant="h3" component="h1" gutterBottom>
@@ -73,8 +91,8 @@ const Cart = () => {
                 <Typography variant="h5" component="h2">
                     Total Price: LKR.{cart.getTotalPrice()}
                 </Typography>
-                <Button variant="contained" color="primary" onClick={handleCheckout}>
-                    Checkout
+                <Button variant="contained" color="primary" onClick={placeOrder}>
+                    Place order
                 </Button>
             </Box>
         </Container>

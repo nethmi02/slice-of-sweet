@@ -55,6 +55,7 @@ function App() {
             <Route path="/confirm" element={<Confirmpage />} />
             <Route path="cake/:id" element={<Cake />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
         </Routes>
       </Router>

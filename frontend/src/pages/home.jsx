@@ -76,11 +76,10 @@ const Home = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/reviews"); // Update with correct URL
+        const response = await fetch("http://localhost:3001/api/reviews");
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched reviews:", data); // Log the fetched data
-          setReviews(data);
+          setReviews(data.filter((review) => !review.hidden));
         } else {
           console.error("Failed to fetch reviews. Status:", response.status);
         }

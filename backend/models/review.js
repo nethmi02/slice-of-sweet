@@ -4,15 +4,15 @@ const reviewSchema = new mongoose.Schema(
   {
     userName: {
       type: String,
-      required: true,
+      // required: true,
     },
     itemName: {
       type: String,
-      required: true,
+      // required: true,
     },
     itemCode: {
       type: String,
-      required: true,
+      // required: true,
     },
     tasteRating: {
       type: Number,

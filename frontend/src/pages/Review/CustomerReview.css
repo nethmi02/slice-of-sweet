@@ -1,20 +1,24 @@
-/* CustomerReview.css */
+/* Table styling */
+.MuiTableCell-root {
+  text-align: center; /* Center-align text in table cells */
+}
 
-/* General container styling */
+.MuiTableHead-root {
+  background-color: #f5f5f5; /* Light gray background for the header */
+}
+
 .review-container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
   margin-top: 90px;
 }
 
-/* Header styling */
 .header {
   text-align: center;
   margin-bottom: 32px;
 }
 
-/* Sort buttons container styling */
 .sort-buttons {
   display: flex;
   justify-content: center;
@@ -22,36 +26,17 @@
   margin-bottom: 32px;
 }
 
-/* Review card styling */
-.review-card {
-  margin-bottom: 24px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Fading styling for hidden rows */
+.hidden-row {
+  opacity: 0.5; /* Adjust as needed for fading effect */
+  background-color: #f2f2f2; /* Light gray to indicate hidden status */
 }
 
-/* Styling for hidden reviews */
-.review-card.hidden {
-  background-color: #f2f2f277;
-}
-
-/* Posted time and user name text styling */
-.review-details {
-  font-size: smallest;
-  opacity: 0.6;
-  margin-bottom: 15px;
-}
-
-/* Comment text styling */
 .review-comment {
   font-size: medium;
-  margin-bottom: 16px;
   margin-bottom: 8px;
 }
 
-/* Button styling */
 .btn {
   margin-right: 8px;
   margin-bottom: 8px;
@@ -66,7 +51,7 @@
 }
 
 .btn.unhide {
-  background-color: #4caf50; /* Green color for Unhide */
+  background-color: #4caf50;
 }
 
 .btn.unhide:hover {
@@ -80,5 +65,3 @@
 .btn.delete:hover {
   background-color: #c62828;
 }
-
-/* Specific styles for sort buttons */

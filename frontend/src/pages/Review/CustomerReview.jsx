@@ -52,7 +52,7 @@ const CustomerReview = () => {
       comment,
       _id: itemId, // Use _id (itemId) for identification
       submissionTime: new Date().toISOString(),
-      userName,
+      // userName,
     };
 
     const success = await submitReview(reviewData, isEditMode);

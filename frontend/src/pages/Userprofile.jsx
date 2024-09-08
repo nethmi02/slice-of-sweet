@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-// import Intialordersummary from '../pages_old/components/Intialordersummary';
+import Ordersummary from '../components/orderSummary';
 import pic1 from '../assets/profile.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
@@ -178,8 +178,9 @@ const Userprofile = () => {
                         </Grid>
                         {/* 2 grid */}
 
-                        {/* <Grid item md={12}>   <Intialordersummary />
-                        </Grid> */}
+                        <Grid item md={12}>   
+                            <Ordersummary />
+                        </Grid>
                     </Grid>
 
                 </Paper>

@@ -4,16 +4,26 @@ const authenticate = require('../auth');
 
 const router = express.Router();
 
-// Order Routes
-router.post('/order', async (req, res) => {
-  const { items, deliveryAddress, totalPrice, user } = req.body;
+router.get('/', authenticate, async (req, res) => {
+  const user_id = req.user._id;
+  try {
+    const orders = await Order.find({ user: user_id });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post('/', authenticate, async (req, res) => {
+  const user_id = req.user._id;
+  const { items, deliveryAddress, totalPrice } = req.body;
 
   const newOrder = new Order({
     items,
     deliveryAddress,
     totalPrice,
     orderPlacedTime: new Date(),
-    user,
+    user: user_id,
   });
 
   try {
@@ -24,7 +34,7 @@ router.post('/order', async (req, res) => {
   }
 });
 
-router.get('/admin/orders', async (req, res) => {
+router.get('/admin', async (req, res) => {
   try {
     const orders = await Order.find();
     res.json(orders);

@@ -70,6 +70,14 @@ class User {
     return response.status < 400;
   }
 
+  async signOut() {
+    this.token = ""
+    localStorage.removeItem("token")
+    this.email = ""
+    this.name = ""
+    this.phone = ""
+    this.address = ""
+  }
 }
 
 export default User;

@@ -97,7 +97,7 @@ const Home = () => {
             <Typography variant="h6" component="p" gutterBottom>
               Celebrate every moment with our delicious, custom cakes. Order online and enjoy fresh, high-quality ingredients delivered right to your door. Your perfect cake is just a click away!
             </Typography>
-            <OrderButton variant="contained" component={Link} to="/order">
+            <OrderButton variant="contained" component={Link} to="/Menu">
               Order Now
             </OrderButton>
           </Grid>
@@ -138,7 +138,7 @@ const Home = () => {
               <Typography variant="h4" component="h2" gutterBottom>
                 WEDDING CAKES | BIRTHDAY CAKES | THEMED CUPCAKES
               </Typography>
-              <OrderButton variant="contained" component={Link} to="/order">
+              <OrderButton variant="contained" component={Link} to="/CustomizeCake">
                 Customize Now
               </OrderButton>
             </Slide>

@@ -15,7 +15,7 @@ const cakeSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   category: {
     type: String,
@@ -23,6 +23,6 @@ const cakeSchema = new mongoose.Schema({
   },
 });
 
-const Cake = mongoose.model("cake", cakeSchema);
+const Cake = mongoose.model("Cake", cakeSchema);
 
 module.exports = Cake;

@@ -73,7 +73,7 @@ const Header = () => {
           <LinkButton component={Link} to="/">Home</LinkButton>
           <LinkButton component={Link} to="/about">About</LinkButton>
           <LinkButton component={Link} to="/menu">Menu</LinkButton>
-          <LinkButton component={Link} to="/order"> Customize Cake</LinkButton>
+          <LinkButton component={Link} to="/CustomizeCake"> Customize Cake</LinkButton>
           <LinkButton component={Link} to="/contact">Contact Us</LinkButton>
           <SocialIconButton href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
             <img src="/instagram-icon.png" alt="Instagram" />

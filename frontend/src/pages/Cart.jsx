@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {Container, Typography, Box, Grid, Button, Card, CardContent, CardActions, TextField} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, Box, Grid, Button, Card, CardContent, CardActions, TextField } from '@mui/material';
 import cart from '../cart';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const [items, setItems] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setItems(cart.getItems());
@@ -15,8 +17,9 @@ const Cart = () => {
     };
 
     const handleCheckout = () => {
-        // Implement checkout logic here
-        alert('Proceeding to checkout');
+
+
+        navigate('/checkout');
     };
 
     const handleQuantityChange = (cakeName, value) => {
@@ -30,7 +33,7 @@ const Cart = () => {
     };
 
     return (
-        <Container sx={{mt: '120px'}}>
+        <Container sx={{ mt: '120px' }}>
             <Typography variant="h3" component="h1" gutterBottom>
                 Your Cart
             </Typography>
@@ -50,7 +53,7 @@ const Cart = () => {
                                     type="number"
                                     value={item.quantity}
                                     onChange={(e) => handleQuantityChange(item.name, e.target.value)}
-                                    inputProps={{min: 1}}
+                                    inputProps={{ min: 1 }}
                                     fullWidth
                                 />
                                 <Typography variant="h6" component="div">
@@ -66,7 +69,7 @@ const Cart = () => {
                     </Grid>
                 ))}
             </Grid>
-            <Box sx={{mt: 4}}>
+            <Box sx={{ mt: 4 }}>
                 <Typography variant="h5" component="h2">
                     Total Price: LKR.{cart.getTotalPrice()}
                 </Typography>

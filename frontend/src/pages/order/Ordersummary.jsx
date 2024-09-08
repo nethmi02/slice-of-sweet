@@ -1,28 +1,38 @@
 import { Button, Card, CardContent, Typography } from '@mui/material';
-import React from 'react';
-import pic1 from './assets/re.svg'
+import React, { useEffect, useState } from 'react';
+import pic1 from './assets/re.svg';
 import { Box } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import { useNavigate } from 'react-router-dom';
-// Example order data
-const order = [
-  {
-    "order_id": "ORD67890",
-    "order_name": "Chocolate Cake",
-    "price": 25.50,
-    "order_date": "2024-08-12",
-    "estimated_delivery": "2024-08-15"
-  }
-];
-
-
+import { useNavigate, useParams } from 'react-router-dom';
+import { OrderDetails } from './OrderDetails';
 
 const Ordersummary = () => {
-  const navigate=useNavigate()
+  const { id } = useParams(); 
+  const navigate = useNavigate();
+  const [order, setOrder] = useState(null); 
 
   const defaultTheme = createTheme();
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/orders/${id}`);
+        if (response.ok) {
+          const json = await response.json(); 
+          setOrder(json);
+        } else {
+          console.error('Failed to fetch order:', await response.text());
+        }
+      } catch (error) {
+        console.error('Error fetching order:', error);
+      }
+    };
+
+    fetchOrder();
+  }, [id]);
+
   return (
     <>
       <ThemeProvider theme={defaultTheme}>

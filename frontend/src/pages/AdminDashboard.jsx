@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Drawer, List, ListItem, ListItemText, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
+import AdminOrders from '../components/AdminOrders';
+import AdminCakes from '../components/AdminCakes';
 
 const AdminDashboard = () => {
   const [selectedPane, setSelectedPane] = useState('orders');
@@ -52,45 +54,10 @@ const AdminDashboard = () => {
           <Typography variant="h4">Items</Typography>
         )}
         {selectedPane === 'orders' && (
-          <Box>
-            <Typography variant="h4">Orders</Typography>
-            <Button variant="contained" onClick={handleRefresh}>Refresh</Button>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Order ID</TableCell>
-                    <TableCell>Item Name</TableCell>
-                    <TableCell>Item Price</TableCell>
-                    <TableCell>Item Quantity</TableCell>
-                    <TableCell>Delivery Address</TableCell>
-                    <TableCell>Total Price</TableCell>
-                    <TableCell>Order Placed Time</TableCell>
-                    <TableCell>User</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orders.map((order) => (
-                    order.items.map((item, index) => (
-                      <TableRow key={`${order._id}-${index}`}>
-                        <TableCell>{order._id}</TableCell>
-                        <TableCell>{item.name}</TableCell>
-                        <TableCell>{item.price}</TableCell>
-                        <TableCell>{item.quantity}</TableCell>
-                        <TableCell>{order.deliveryAddress}</TableCell>
-                        <TableCell>{order.totalPrice}</TableCell>
-                        <TableCell>{new Date(order.orderPlacedTime).toLocaleString()}</TableCell>
-                        <TableCell>{order.user}</TableCell>
-                      </TableRow>
-                    ))
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
+          <AdminOrders/>
         )}
         {selectedPane === 'cakes' && (
-          <Typography variant="h4">Cakes</Typography>
+          <AdminCakes/>
         )}
       </Box>
     </Box>

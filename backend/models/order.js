@@ -15,7 +15,8 @@ const orderSchema = new mongoose.Schema({
         quantity: Number
     }],
     user: String,
-    _v: Number
+    _v: Number,
+    status: { type: String, required: false }
 }, { timestamps: true });
 
 const Order = mongoose.model('Order', orderSchema);

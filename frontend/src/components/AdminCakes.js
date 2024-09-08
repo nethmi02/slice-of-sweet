@@ -13,7 +13,7 @@ const CakeButton = styled(Button)({
     color: '#fff',
 });
 
-const Dash = () => {
+const AdminCakes = () => {
     const [cakes, setCakes] = useState([]);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -108,8 +108,8 @@ const Dash = () => {
     return (
         <div>
             <Container>
-                <Box component='form' sx={{ mt: 2, height: 500 }}>
-                    <Paper elevation={3} sx={{ p: 4, borderRadius: 2, height: 800, paddingBottom: 10 }}>
+                <Box component='form' sx={{ mt: 2}}>
+                    <Paper elevation={3} sx={{ p: 4, borderRadius: 2, paddingBottom: 10 }}>
                         <Stack direction="column" spacing={2}>
                             <Typography component="h1" variant='h5' align='center' gutterBottom>ADD CAKE</Typography>
                             <TextField
@@ -182,4 +182,4 @@ const Dash = () => {
     );
 };
 
-export default Dash;
+export default AdminCakes;

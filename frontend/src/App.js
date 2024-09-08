@@ -47,6 +47,8 @@ function App() {
               <Route path="profile" element={<Userprofile />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="login" element={<LoginPage />} />
+             <Route path='/orderconfirm' element={<Confirmpage/>}/>
+            <Route path='/ordersummary/:id' element={<Ordersummary/>}/>
 
               <Route path="customizeCake" element={<CustomizeCake />} />
               <Route path="dash" element={<Dash />} />

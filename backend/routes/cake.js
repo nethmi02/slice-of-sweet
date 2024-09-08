@@ -1,6 +1,8 @@
 const express = require("express");
 const cakeRouter = express.Router();
 const Cake = require("../models/cake");
+const authenticate = require("../auth");
+const User = require("../models/user");
 
 cakeRouter.get('/', async (req, res) => {
   console.log("/cakes Endpoint");
@@ -24,33 +26,53 @@ cakeRouter.get('/:id', async (req, res) => {
   }
 });
 
-// Add a new cake
-cakeRouter.post('/', async (req, res) => {
-  const { name, price, description, category } = req.body;
+cakeRouter.post('/', authenticate, async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  console.log(user);
+  if (user.role !== 'admin') {
+    return res.status(403).json({ message: 'Unauthorized' });
+  }
 
-  // Validate required fields
+  const { id, name, price, description, category } = req.body;
+  console.log(req.body);
+
   if (!name || !price || !description || !category) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  const newCake = new Cake({
-    name,
-    price,
-    description,
-    category,
-  });
+  let cake;
+  if (id) {
+    cake = await Cake.findById(id);
+    if (!cake) {
+      return res.status(404).json({ message: 'Cake not found' });
+    }
+    cake.name = name;
+    cake.price = price;
+    cake.description = description;
+    cake.category = category;
+  } else {
+    cake = new Cake({
+      name,
+      price,
+      description,
+      category,
+    });
+  }
 
-  console.log("Post Cake")
   try {
-    const savedCake = await newCake.save();
+    const savedCake = await cake.save();
     res.status(201).json(savedCake);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Delete a cake by ID
 cakeRouter.delete('/:id', async (req, res) => {
+  const user = await User.findById(req.user.userID);
+  if (user.role !== 'admin') {
+    return res.status(403).json({ message: 'Unauthorized' });
+  }
+
   try {
     const deletedCake = await Cake.findByIdAndDelete(req.params.id);
     if (!deletedCake) {

@@ -3,10 +3,12 @@ import { Box, Button, Drawer, List, ListItem, ListItemText, Typography, Table, T
 import axios from 'axios';
 import AdminOrders from '../components/AdminOrders';
 import AdminCakes from '../components/AdminCakes';
+import User from '../data/user'; // Import the User class
 
 const AdminDashboard = () => {
   const [selectedPane, setSelectedPane] = useState('orders');
   const [orders, setOrders] = useState([]);
+  const [user, setUser] = useState(null); // Add state for user
 
   const fetchOrders = async () => {
     try {
@@ -17,7 +19,14 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchUser = async () => {
+    const userInstance = User.instance;
+    await userInstance.fetchData();
+    setUser(userInstance);
+  };
+
   useEffect(() => {
+    fetchUser();
     if (selectedPane === 'orders') {
       fetchOrders();
     }
@@ -26,6 +35,22 @@ const AdminDashboard = () => {
   const handleRefresh = () => {
     fetchOrders();
   };
+
+  if (!user) {
+    return <Box component="main" sx={{ flexGrow: 1, p: 3, minHeight: '100vh' }}>
+        <Typography variant="h6" color="error">
+            Loading...
+        </Typography>
+    </Box>
+  }
+
+  if (user.role !== 'admin') {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Typography variant="h6" color="error">
+            You need to sign in as an admin.
+        </Typography>
+    </Box>
+  }
 
   return (
     <Box sx={{ display: 'flex', pt: 20 }}>
@@ -50,9 +75,6 @@ const AdminDashboard = () => {
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {selectedPane === 'items' && (
-          <Typography variant="h4">Items</Typography>
-        )}
         {selectedPane === 'orders' && (
           <AdminOrders/>
         )}

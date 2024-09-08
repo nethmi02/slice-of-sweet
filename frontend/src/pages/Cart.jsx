@@ -16,12 +16,6 @@ const Cart = () => {
         setItems(cart.getItems());
     };
 
-    const handleCheckout = () => {
-
-
-        navigate('/checkout');
-    };
-
     const handleQuantityChange = (cakeName, value) => {
         let quantity = parseInt(value, 10);
         if (isNaN(quantity) || quantity <= 0) {

@@ -15,7 +15,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import pic1 from '../assets/signup.svg'
 import { styled } from '@mui/system';
-import { userSchema } from '../pages_old/Validation/UserValidtation';
+import { userSchema } from '../data/UserValidtation';
+import axios from 'axios';
+import User from '../data/user';
 
 const OrderButton = styled(Button)({
   backgroundColor: '#ff69b4',
@@ -27,8 +29,8 @@ const OrderButton = styled(Button)({
 
 const defaultTheme = createTheme();
 
-const SignUp = ({ setUserData }) => {
-  const [open, setopen] = useState(false)
+const SignUp = () => {
+  const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
     fullname: '',
     email: '',
@@ -48,42 +50,46 @@ const SignUp = ({ setUserData }) => {
     });
   };
 
-  const handleRegister = () => {
-    setUserData(form);
-   
-    
-  };
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     let formdata={
-   
-
       name:form.fullname,
       email:form.email,
       password:form.password,
       phone:form.phone,
       address:form.address,
-      
-
     }
-    const isvalid= await userSchema.isValid(formdata)
-    if (isvalid && form.password==form.confirmPassword)  {
-      alert(" Successful")
-      navigate('/profile');
-        
-    } else {
-      setopen(true)
+    alert(await userSchema.validate(formdata))
+    const isValid = await userSchema.isValid(formdata)
+
+    if (!isValid) {
+      setErrorMessage("Invalid Data!")
+      return
+    }
+
+    if (form.password!=form.confirmPassword) {
+      setErrorMessage("Password and Confirm Password do not match!")
+      return
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3001/api/auth/register', formdata);
+      if (response.status === 201) {
+        User.instance.setToken(response.data.token);
+        navigate('/profile');      
+      } else {
+        setErrorMessage("Failed to register: " + response.data.message)
+      }
+    } catch (error) {
+      setErrorMessage('Error registering user:' + error);
     }
   };
   const handleclose = (e, reason) => {
     if (reason == 'clickaway') {
       return
     } else {
-      setopen(false)
+      setErrorMessage("")
     }
   }
 
@@ -186,11 +192,11 @@ const SignUp = ({ setUserData }) => {
               label="Remember me"
             />
             <OrderButton type="submit"
-              fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleRegister}>Sign up</OrderButton>
+              fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>Sign up</OrderButton>
             <Snackbar
-              message='Invalid Data!'
+              message={errorMessage}
               autoHideDuration={4000}
-              open={open}
+              open={errorMessage!=''}
               onClose={handleclose}
             />
             <Grid item>

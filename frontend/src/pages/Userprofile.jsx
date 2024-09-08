@@ -3,10 +3,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Intialordersummary from '../pages_old/components/Intialordersummary';
+// import Intialordersummary from '../pages_old/components/Intialordersummary';
 import pic1 from '../assets/profile.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import User from '../data/user';
+import { useEffect } from 'react';
+
 const OrderButton = styled(Button)({
     backgroundColor: '#ff69b4',
     '&:hover': {
@@ -15,24 +18,18 @@ const OrderButton = styled(Button)({
     color: '#fff',
 });
 
-
 const defaultTheme = createTheme();
-const Userprofile = ({ userData, setUserData }) => {
 
+const Userprofile = () => {
     const [fullname, setfullname] = useState("")
-
     const [email, setemail] = useState("")
     const [address, setaddress] = useState("")
     const [password, setpassword] = useState("")
+    const [oldPassword, setoldpassword] = useState("")
     const [confirmPassword, setconfirmpassword] = useState("")
     const [phone, setphone] = useState("")
     const [open, setOpen] = useState(false);
     const navigate=useNavigate()
-
-
-    const handleClick = () => {
-        navigate('/editprofile')
-    }
 
     const handleOpen = () => {
         setOpen(true);
@@ -45,37 +42,56 @@ const Userprofile = ({ userData, setUserData }) => {
 
     };
 
-    const handleResetPassword = () => {
-        if (password !== confirmPassword) {
-            alert("password do not match")
-        } else {
-            userData.password = password; // or however you handle user data update
-            setOpen(false);
-            setpassword("");
-            setconfirmpassword("");
-
+    const handleChangePassword = () => {
+        if (password === confirmPassword) {
+            let didChange = User.instance.changePassword(oldPassword, password)
+            if (didChange) {
+                handleClose()
+            } else {
+                alert("Password change failed")
+            }
         }
-    };
+    }
 
+    const handleSubmit = async () => {
+        let formdata={
+            name:fullname,
+            email:email,
+            phone:phone,
+            address:address
+        }
+        let res = await User.instance.updateData(formdata)
+        console.log(res)
+        if(res){
+            alert("Profile updated successfully")
+        }else{
+            alert("Profile update failed")
+        }
+    }
+
+    useEffect(()=>{
+        User.instance.fetchData().then(()=>{
+            setfullname(User.instance.name)
+            setemail(User.instance.email)
+            setphone(User.instance.phone)
+            setaddress(User.instance.address)
+        })
+    },[])
 
     return (
         <div>
             <ThemeProvider theme={defaultTheme}>
                 <Paper elevation={3}>
                     <Grid container >
-
-
                         <CssBaseline />
-                        {/* 1 grid */}
-
                         <Grid item md={16}>
-
                             <img
                                 src={pic1}
                                 alt="First"
                                 style={{ width: '30%', height: '50%', marginLeft: '34%' }}
                             />
                         </Grid>
+
                         <Grid item md={8}>
                             <Box sx={{ marginLeft: '50%' }}>
                                 <Typography component="h1" variant="h4">
@@ -86,28 +102,28 @@ const Userprofile = ({ userData, setUserData }) => {
                                 </Typography>
                                 <TextField
                                     label="Full Name:"
-                                    value={userData.fullname}
+                                    value={fullname}
                                     onChange={(e) => setfullname(e.target.value)}
                                     fullWidth
                                     autoFocus
                                     autoComplete='name' />
                                 <TextField
                                     label="Email:"
-                                    value={userData.email}
+                                    value={email}
                                     onChange={(e) => setemail(e.target.value)}
                                     fullWidth
 
                                     autoComplete='name' />
                                 <TextField
                                     label="Contact No:"
-                                    value={userData.phone}
+                                    value={phone}
                                     onChange={(e) => setphone(e.target.value)}
                                     fullWidth
 
                                     autoComplete='name' />
                                 <TextField
                                     label="Address:"
-                                    value={userData.address}
+                                    value={address}
                                     onChange={(e) => setaddress(e.target.value)}
                                     fullWidth
 
@@ -117,10 +133,7 @@ const Userprofile = ({ userData, setUserData }) => {
                                     Set/Reset Password
                                 </Button>
                                 <OrderButton type="submit"
-                                    fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleClick}>Edit Profile</OrderButton>
-
-
-
+                                    fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>Edit Profile</OrderButton>
 
                                 <Dialog open={open} onClose={handleClose}>
                                     <DialogTitle>Set/Reset Password</DialogTitle>
@@ -132,24 +145,26 @@ const Userprofile = ({ userData, setUserData }) => {
                                             label="Set password:"
                                             value={password}
                                             onChange={(e) => setpassword(e.target.value)}
-                                            fullWidth
-
-                                            autoComplete='name' />
+                                            fullWidth/>
 
                                         <TextField
                                             label="Confirm Password:"
                                             value={confirmPassword}
                                             onChange={(e) => setconfirmpassword(e.target.value)}
-                                            fullWidth
+                                            fullWidth/>
 
-                                            autoComplete='name' />
+                                        <TextField
+                                            label="Old Password:"
+                                            value={oldPassword}
+                                            onChange={(e) => setoldpassword(e.target.value)}
+                                            fullWidth/>
 
                                     </DialogContent>
                                     <DialogActions>
                                         <Button onClick={handleClose} color="primary">
                                             Cancel
                                         </Button>
-                                        <Button onClick={handleResetPassword} color="primary">
+                                        <Button onClick={handleChangePassword} color="primary">
                                             Set Password
                                         </Button>
                                     </DialogActions>
@@ -163,8 +178,8 @@ const Userprofile = ({ userData, setUserData }) => {
                         </Grid>
                         {/* 2 grid */}
 
-                        <Grid item md={12}>   <Intialordersummary />
-                        </Grid>
+                        {/* <Grid item md={12}>   <Intialordersummary />
+                        </Grid> */}
                     </Grid>
 
                 </Paper>

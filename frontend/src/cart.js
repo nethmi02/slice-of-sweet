@@ -36,6 +36,10 @@ class Cart {
   getTotalPrice() {
     return this.items.reduce((total, item) => total + Number(item.price.substring(4)) * item.quantity, 0);
   }
+
+  clearCart() {
+    this.items = [];
+  }
 }
 
 const instance = new Cart()

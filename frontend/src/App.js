@@ -52,7 +52,7 @@ function App() {
             <Route path="customizeCake" element={<CustomizeCake />} />
             <Route path="dash" element={<Dash />} />
             <Route path="about" element={<About />} />
-            <Route path='/orderconfirm' element={<Confirmpage/>}/>
+            <Route path='/confirm' element={<Confirmpage/>}/>
             <Route path="cake/:id" element={<Cake />} />
           </Route>
         </Routes>

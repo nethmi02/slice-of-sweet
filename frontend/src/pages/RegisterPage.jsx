@@ -76,7 +76,7 @@ const SignUp = () => {
     try {
       const response = await axios.post('http://localhost:3001/api/auth/register', formdata);
       if (response.status === 201) {
-        User.instance.token = response.data.token;
+        User.instance.setToken(response.data.token);
         navigate('/profile');      
       } else {
         setErrorMessage("Failed to register: " + response.data.message)

@@ -6,8 +6,9 @@ const authenticate = (req, res, next) => {
     return res.status(401).send("Access denied");
   }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, "hehe");
     req.user = decoded;
+    console.log(decoded)
     next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {

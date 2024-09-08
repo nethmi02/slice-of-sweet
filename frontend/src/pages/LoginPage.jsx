@@ -43,7 +43,7 @@ const Login = () => {
       try {
         const response = await axios.post('http://localhost:3001/api/auth/login', { email, password });
         if (response.status === 200) {
-          User.token=response.data.token
+          User.instance.setToken(response.data.token)
           alert("Successful")
           navigate('/profile')
         } else {

@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "./style.css"; // Import the CSS file
 
 // Styled components
 const OrderButton = styled(Button)({
@@ -55,12 +56,12 @@ const Slide = styled(Box)(({ bgImage }) => ({
 
 const ReviewCard = styled(Paper)(({ bgImage }) => ({
   padding: "20px",
-  margin: "20px",
+  margin: "0 10px", // Margin on left and right
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   boxSizing: "border-box",
-  maxWidth: "100%",
+  maxWidth: "300px", // Ensure it doesn’t exceed 300px
   backgroundImage: `url(${bgImage || "/default-bg.png"})`,
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -192,26 +193,22 @@ const Home = () => {
             alignItems: "center",
             flexDirection: "column",
             mt: 4,
-            overflow: "hidden", // Hide scrollbars
             padding: 0,
-            position: "relative",
-            width: "100%", // Ensure it spans the full width
-            height: "auto", // Adjust height based on content
           }}
         >
           <Typography variant="h4" component="h2" gutterBottom>
             Customer Reviews
           </Typography>
-          <Carousel showThumbs={false} autoPlay infiniteLoop>
+          <Box className="review-carousel">
             {reviews.map((review, index) => (
-              <div key={index}>
+              <div key={index} className="review-card">
                 <ReviewCard>
-                  <Typography variant="h6" className="review-item-name">
+                  {/* <Typography variant="h6" className="review-item-name">
                     Item Name: {review.itemName}
                   </Typography>
                   <Typography variant="body1" className="review-item-code">
                     Item Code: {review.itemCode}
-                  </Typography>
+                  </Typography> */}
                   <Typography component="legend">Taste</Typography>
                   <Rating
                     name="taste-rating"
@@ -241,7 +238,7 @@ const Home = () => {
                 </ReviewCard>
               </div>
             ))}
-          </Carousel>
+          </Box>
         </Box>
       </Container>
     </div>

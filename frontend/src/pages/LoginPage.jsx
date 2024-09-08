@@ -15,7 +15,10 @@ import pic1 from '../assets/signin.svg'
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { Snackbar } from '@mui/material';
-import { userSchema } from '../pages_old/Validation/UserValidtation';
+import { userSchema } from '../data/UserValidtation';
+import axios from 'axios';
+import User from '../data/user'
+
 const OrderButton = styled(Button)({
   backgroundColor: '#ff69b4',
   '&:hover': {
@@ -24,40 +27,42 @@ const OrderButton = styled(Button)({
   color: '#fff',
 });
 
-
-
-
 const defaultTheme = createTheme();
 
 const Login = () => {
   const navigate=useNavigate()
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
-  const [open,setopen]=useState(false)
+  const [error, setError] = useState("")
   
   const handleClick = async(e) => {
-  
     e.preventDefault();
-    let formdata={
-      email:e.target.email,
-      password:e.target.password
-    }
-    const isvalid=await userSchema.isValid(formdata)
+
+    const isvalid=email.length>0 && password.length>0
     if (isvalid) {
-   
-      alert(" Successful")
-      navigate('/')
+      try {
+        const response = await axios.post('http://localhost:3001/api/auth/login', { email, password });
+        if (response.status === 200) {
+          User.instance.setToken(response.data.token)
+          alert("Successful")
+          navigate('/profile')
+        } else {
+          setError("Invalid email or password");
+        }
+      } catch (error) {
+        console.error('Login failed:', error);
+        setError("Invalid email or password");
+      }
     } else {
-    setopen(true)
+      setError("Invalid Data!")
     }
   };
-
  
   const handleclose = (e, reason) => {
     if (reason == 'clickaway') {
       return
     } else {
-      setopen(false)
+      setError("")
     }
   }
 
@@ -114,15 +119,15 @@ const Login = () => {
             <OrderButton type="submit"
               fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleClick} >Sign in</OrderButton>
                <Snackbar
-              message='Invalid Data!'
+              message={error}
               autoHideDuration={4000}
-              open={open}
+              open={error != ""}
               onClose={handleclose}
             />
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link href="/register" variant="body2">
+                  Register Instead
                 </Link>
               </Grid>
 

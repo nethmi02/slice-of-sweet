@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import cart from '../cart';
+import User from '../data/user';
+import { useState, useEffect } from 'react';
 
 const Navbar = styled(AppBar)({
   backgroundColor: '#fff', 
@@ -63,6 +65,23 @@ const SocialIconButton = styled('a')({
 });
 
 const Header = () => {
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    User.instance.fetchData().then(() => {
+      let user = User.instance
+      if (user.email) {
+        setUserEmail(user.email);
+      }
+    })
+  }, []);
+
+  const signOut = () => {
+    User.instance.signOut()
+    setUserEmail('')
+    window.location.reload()
+  }
+
   return (
     <Navbar>
       <Toolbar style={{ justifyContent: 'center' }}>
@@ -86,6 +105,27 @@ const Header = () => {
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
+          {
+            userEmail && (
+              <LinkButton component={Link} to="/profile">
+                {userEmail}
+              </LinkButton>
+            )
+          }
+          {
+            userEmail && (
+              <Button onClick={signOut}>
+                Sign Out
+              </Button>
+            )
+          }
+          {
+            !userEmail && (
+              <LinkButton component={Link} to="/login">
+                Login
+              </LinkButton>
+            )
+          }
         </NavLinks>
       </Toolbar>
     </Navbar>

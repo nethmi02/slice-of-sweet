@@ -44,9 +44,6 @@ const Ordersummary = () => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-             
-              
-              
             }}
           >
        

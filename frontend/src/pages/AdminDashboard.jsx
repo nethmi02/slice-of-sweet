@@ -4,6 +4,7 @@ import axios from 'axios';
 import AdminOrders from '../components/AdminOrders';
 import AdminCakes from '../components/AdminCakes';
 import User from '../data/user'; // Import the User class
+import AdminReviewPage from './Review/ReviewsManagement';
 
 const AdminDashboard = () => {
   const [selectedPane, setSelectedPane] = useState('orders');
@@ -72,6 +73,9 @@ const AdminDashboard = () => {
           <ListItem button onClick={() => setSelectedPane('cakes')}>
             <ListItemText primary="Cakes" />
           </ListItem>
+          <ListItem button onClick={() => setSelectedPane('reviews')}>
+            <ListItemText primary="Reviews" />
+          </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -80,6 +84,9 @@ const AdminDashboard = () => {
         )}
         {selectedPane === 'cakes' && (
           <AdminCakes/>
+        )}
+        {selectedPane === 'reviews' && (
+          <AdminReviewPage/>
         )}
       </Box>
     </Box>

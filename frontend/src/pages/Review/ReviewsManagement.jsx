@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Rating, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Rating,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
 import "./CustomerReview.css"; // Import the CSS file
 
 const AdminReviewPage = () => {
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
-  // Fetch reviews from the backend
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/reviews"); // Update with correct URL
+        const response = await fetch("http://localhost:3001/api/reviews");
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched reviews:", data); // Log the fetched data
           setReviews(data);
         } else {
           console.error("Failed to fetch reviews. Status:", response.status);
@@ -28,16 +38,13 @@ const AdminReviewPage = () => {
     fetchReviews();
   }, []);
 
-  // Toggle review visibility
   const handleToggleVisibility = async (id, currentVisibility) => {
     try {
       const response = await fetch(
         `http://localhost:3001/api/reviews/${id}/toggle`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ hidden: !currentVisibility }),
         }
       );
@@ -58,7 +65,6 @@ const AdminReviewPage = () => {
     }
   };
 
-  // Confirm and delete review
   const handleDeleteReview = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this review?"
@@ -85,7 +91,6 @@ const AdminReviewPage = () => {
     }
   };
 
-  // Sort reviews by rating
   const handleSortByRating = () => {
     setReviews((prevReviews) =>
       [...prevReviews].sort(
@@ -98,16 +103,14 @@ const AdminReviewPage = () => {
     );
   };
 
-  // Sort reviews by posted time
   const sortByPostedTime = () => {
     setReviews((prevReviews) =>
       [...prevReviews].sort(
-        (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
+        (a, b) => new Date(b.submissionTime) - new Date(a.submissionTime)
       )
     );
   };
 
-  // Sort reviews by user name
   const sortByUserName = () => {
     setReviews((prevReviews) =>
       [...prevReviews].sort((a, b) => a.userName.localeCompare(b.userName))
@@ -124,7 +127,6 @@ const AdminReviewPage = () => {
         Manage Reviews
       </Typography>
 
-      {/* Sort Buttons */}
       <Box className="sort-buttons">
         <Button
           variant="contained"
@@ -149,82 +151,85 @@ const AdminReviewPage = () => {
         </Button>
       </Box>
 
-      {/* Reviews */}
-      {reviews.map((review) => (
-        <Box
-          key={review._id}
-          className={`review-card ${review.hidden ? "hidden" : ""}`}
-        >
-          <Box className="review-header">
-            <Typography className="review-user-time">
-              {review.userName}
-            </Typography>
-            <Typography className="review-user-time">
-              {new Date(review.postedTime).toLocaleDateString()}{" "}
-              {/* Short date format */}
-              <br />
-              {new Date(review.postedTime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}{" "}
-              {/* Short time format */}
-            </Typography>
-          </Box>
-
-          <Typography className="review-item-name">
-            Item Name: {review.itemName}
-          </Typography>
-          <Typography className="review-item-code">
-            Item Code: {review.itemCode}
-          </Typography>
-
-          <Typography component="legend">Taste</Typography>
-          <Rating
-            name="taste-rating"
-            value={review.tasteRating}
-            readOnly
-            sx={{ mb: 1 }}
-          />
-
-          <Typography component="legend">Look</Typography>
-          <Rating
-            name="look-rating"
-            value={review.lookRating}
-            readOnly
-            sx={{ mb: 1 }}
-          />
-
-          <Typography component="legend">Value for the Price</Typography>
-          <Rating
-            name="value-rating"
-            value={review.valueRating}
-            readOnly
-            sx={{ mb: 1 }}
-          />
-
-          <Typography className="review-comment">{review.comment}</Typography>
-
-          <Box sx={{ display: "flex", gap: 2 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleToggleVisibility(review._id, review.hidden)}
-              className={`btn ${review.hidden ? "unhide" : "hide"}`}
-            >
-              {review.hidden ? "Unhide" : "Hide"}
-            </Button>
-
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => handleDeleteReview(review._id)}
-              className="btn delete"
-            >
-              Delete
-            </Button>
-          </Box>
-        </Box>
-      ))}
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>User Name</TableCell>
+              <TableCell>Item Code</TableCell>
+              <TableCell>Taste</TableCell>
+              <TableCell>Look</TableCell>
+              <TableCell>Value</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Comment</TableCell>
+              <TableCell>Hide/Unhide</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {reviews.map((review) => (
+              <TableRow
+                key={review._id}
+                className={review.hidden ? "hidden-row" : ""}
+              >
+                <TableCell>{review.userName}</TableCell>
+                <TableCell>{review.itemCode}</TableCell>
+                <TableCell>
+                  <Rating
+                    name="taste-rating"
+                    value={review.tasteRating}
+                    readOnly
+                  />
+                </TableCell>
+                <TableCell>
+                  <Rating
+                    name="look-rating"
+                    value={review.lookRating}
+                    readOnly
+                  />
+                </TableCell>
+                <TableCell>
+                  <Rating
+                    name="value-rating"
+                    value={review.valueRating}
+                    readOnly
+                  />
+                </TableCell>
+                <TableCell>
+                  {new Date(review.submissionTime).toLocaleDateString()} <br />
+                  {new Date(review.submissionTime).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </TableCell>
+                <TableCell>{review.comment}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color={review.hidden ? "success" : "warning"}
+                    onClick={() =>
+                      handleToggleVisibility(review._id, review.hidden)
+                    }
+                    className={`btn ${review.hidden ? "unhide" : "hide"}`}
+                  >
+                    {review.hidden ? "Unhide" : "Hide"}
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => handleDeleteReview(review._id)}
+                    className="btn delete"
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };

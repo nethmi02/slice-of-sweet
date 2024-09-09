@@ -67,8 +67,8 @@ cakeRouter.post('/', authenticate, async (req, res) => {
   }
 });
 
-cakeRouter.delete('/:id', async (req, res) => {
-  const user = await User.findById(req.user.userID);
+cakeRouter.delete('/:id', authenticate, async (req, res) => {
+  const user = await User.findById(req.user.userId);
   if (user.role !== 'admin') {
     return res.status(403).json({ message: 'Unauthorized' });
   }
